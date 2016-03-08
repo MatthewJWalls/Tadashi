@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+
+<html lang="en" ng-app="quizzer">
+
+  <head>    
+    <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://code.angularjs.org/1.4.7/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.4.7/angular-resource.min.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+  </head>
+
+  <body>
+
+    <div ng-controller="kanjiControl as quiz">
+
+      <div class="centered">
+        <span class="pink box">
+          <h1 ng-bind="quiz.questions.current.character"></h1>
+        </span>
+        <h2>Kanji <strong>Meaning</strong> and <strong>Reading</strong></h2>
+        <h3 ng-show="answered" ng-bind="quiz.questions.current.meaning"></h3>        
+        <h3 ng-show="answered" ng-bind="quiz.questions.current[quiz.questions.current.important_reading]"></h3>
+        <button id="show-button" focus-next="next-button" ng-show="!answered" ng-click="answered=true">show</button>
+        <button id="next-button" focus-next="show-button" ng-show="answered" ng-click="quiz.questions.next(); answered=false">next</button>
+        
+      </div>
+
+      <p>remaining: {$ quiz.questions.count $}</p>
+      <p ng-model="answered"></p>
+      
+    </div>
+    
+  </body>
+
+</html>

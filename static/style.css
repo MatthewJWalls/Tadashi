@@ -1,0 +1,44 @@
+body {
+    font-family: Meiryo;
+}
+
+.box {
+    display: inline-block;
+    width: 100%
+}
+
+.blue {
+    background-color: rgb(0, 161, 241);
+    background-image: linear-gradient(rgb(0, 170, 255), rgb(0, 147, 221));
+    background-repeat: repeat-x;
+    color: white;
+    text-shadow: rgb(0, 147, 221) 5px 5px 0px;    
+}
+
+.pink {
+    background-color: rgb(241, 0, 161);
+    background-image: linear-gradient(rgb(255, 0, 170), rgb(221, 0, 147));
+    background-repeat: repeat-x;
+    color: white;
+    text-shadow: rgb(221, 0, 147) 5px 5px 0px;
+}
+
+.purple {
+    background-color: rgb(161, 0, 241);
+    background-image: linear-gradient(rgb(170, 0, 255), rgb(147, 0, 221));
+    background-repeat: repeat-x;
+    color: white;
+    text-shadow: rgb(147, 0, 221) 5px 5px 0px;
+}
+
+.centered {
+    text-align: center;
+}
+
+.centered>button {
+    display: inline-block;
+}
+
+h1 {
+    font-size: 196px;
+}
