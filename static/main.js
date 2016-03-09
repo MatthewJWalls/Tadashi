@@ -1,22 +1,5 @@
 "use strict";
 
-// returns an array where each element's
-// attribute is not null
-
-var removenulls = function(array, attr) {
-
-    var out = [];
-
-    angular.forEach(array, function(v, k) {
-        if(v[attr] != null) {
-            out.push(v);
-        }
-    });
-
-    return out;
-    
-}
-
 // shuffles an array
 
 var shoofle = function(array) {
@@ -51,11 +34,25 @@ var ringify = function(array) {
 
 }
 
-// combines nullify, ringify and shoofle into the
-// specific format function we need
+// process the quiz results array (from the API) into
+// something we can work with.
 
 var format = function(array){
-    return ringify(removenulls(shoofle(array), "character"));    
+    
+    var workingSet = []
+    
+    angular.forEach(array, function(v, k){
+        
+        var unlocked = v.user_specific != null;
+        var hasChar  = v.character != null;
+        
+        if(unlocked && hasChar) {
+            workingSet.push(v);
+        }
+        
+    });
+    
+    return ringify(shoofle(workingSet));
 }
 
 // tracks progress on a given linkedList, and
