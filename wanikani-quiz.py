@@ -7,7 +7,7 @@ import os
 from flask import *
 
 # flask configuration
-DEBUG = True
+DEBUG = False
 SECRET_KEY = 'dontcare'
 USERNAME = 'dontcare'
 PASSWORD = 'dontcare'
@@ -40,4 +40,4 @@ def api_vocab(level):
     return res.content
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")
