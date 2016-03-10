@@ -62,16 +62,29 @@ var progression = function(linkedList) {
 
     return {
         current : linkedList[0],
+        flagged : [],
         count: linkedList.length,
+        
         next : function() {
             
-            if(this.current.last) {
+            if(this.current.last && this.flagged.length > 0) {
+                this.lightning();
+            } else if(this.current.last) {
                 this.count = linkedList.length;
             } else {
                 this.count--;
             }
             
             this.current = this.current.next;
+        },
+        
+        flag : function() {
+            this.flagged.push(this.current);
+        },
+        
+        lightning : function() {
+            this.current = format(this.flagged)[0];
+            this.count = this.flagged.length;
         }
 
     };
@@ -161,3 +174,4 @@ app.controller("kanjiControl", kanjiController);
 app.controller("vocabControl", vocabController);
 app.config(config);
 app.directive('focusNext', focuschain);
+

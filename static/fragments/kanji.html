@@ -4,6 +4,7 @@
 <h2>Kanji <strong>Meaning</strong> and <strong>Reading</strong></h2>
 <h3 ng-show="answered" ng-bind="quiz.questions.current.meaning"></h3>        
 <h3 ng-show="answered" ng-bind="quiz.questions.current[quiz.questions.current.important_reading]"></h3>
-<button id="show-button" focus-next="next-button" ng-show="!answered" ng-click="answered=true">show</button>
-<button id="next-button" focus-next="show-button" ng-show="answered" ng-click="quiz.questions.next(); answered=false">next</button>
+<button class="btn btn-success" id="show-button" focus-next="next-button" ng-show="!answered" ng-click="answered=true">show</button>
+<button class="btn btn-success" id="next-button" focus-next="show-button" ng-show="answered" ng-click="quiz.questions.next(); answered=false">next</button>
+<button class="btn btn-danger" id="flag-button" ng-click="quiz.questions.flag();">flag</button>
 <div id="counter">{$ quiz.questions.count $}</div>
