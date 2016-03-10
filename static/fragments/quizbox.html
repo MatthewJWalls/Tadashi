@@ -1,0 +1,21 @@
+<span class="{$quiz.questions.current.background$} box">
+  <h1 ng-bind="quiz.questions.current.character"></h1>
+</span>
+
+<h2>{$quiz.questions.current.type$} <strong>{$quiz.questions.current.question$}</strong></h2>
+
+<!-- before answering -->
+<div ng-show="!answered">
+  <input ng-model="quiz.answer" id="ime"/>
+  <button class="btn btn-success" id="show-button" focus-next="next-button" ng-click="answered=true; quiz.questions.answer(quiz.answer)">show</button>
+  <button class="btn btn-danger" id="flag-button" ng-click="quiz.questions.flag();">flag</button>    
+</div>
+
+<!-- after answering -->
+<div ng-show="answered">
+  <h3 ng-bind="quiz.questions.current.answers"></h3>
+  <button class="btn btn-success" id="next-button" focus-next="show-button" ng-click="quiz.questions.next(); answered=false">next</button>
+  <button class="btn btn-danger" id="flag-button" ng-click="quiz.questions.flag();">flag</button>  
+</div>
+
+<div id="counter">{$ quiz.questions.count $}</div>

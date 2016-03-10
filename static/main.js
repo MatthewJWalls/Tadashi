@@ -43,10 +43,7 @@ var format = function(array){
     
     angular.forEach(array, function(v, k){
         
-        var unlocked = v.user_specific != null;
-        var hasChar  = v.character != null;
-        
-        if(unlocked && hasChar) {
+        if(v.unlocked && v.character != null) {
             workingSet.push(v);
         }
         
@@ -64,6 +61,16 @@ var progression = function(linkedList) {
         current : linkedList[0],
         flagged : [],
         count: linkedList.length,
+
+        answer : function(ans) {
+            
+            if(this.current.answers.indexOf(ans) != -1) {
+                console.log("correct");
+            } else {
+                console.log("incorrect");
+            }
+            
+        },
         
         next : function() {
             
@@ -76,6 +83,7 @@ var progression = function(linkedList) {
             }
             
             this.current = this.current.next;
+
         },
         
         flag : function() {
@@ -91,45 +99,94 @@ var progression = function(linkedList) {
     
 }
 
-var radicalController = function($resource) {
+var quizController = function($resource, $location, $routeParams, $scope, QuestionFactory) {
 
-    var Radicals = $resource("/api/radicals");
+    var apis = {
+        kanji : $resource("/api/kanji/"+$routeParams.level),
+        radicals : $resource("/api/radicals"),
+        vocabulary : $resource("/api/vocabulary/"+$routeParams.level),
+    }
+
+    var factories = {
+        kanji : QuestionFactory.kanji,
+        radicals : QuestionFactory.radicals,
+        vocabulary : QuestionFactory.vocabulary
+    }
+    
     var vm = this;
     
-    Radicals.get().$promise.then(function(o){
+    apis[$routeParams.type].get().$promise.then(function(o){
+
+        var items = factories[$routeParams.type](o.requested_information);
+
         angular.extend(vm, {
-            questions : new progression(format(o.requested_information))            
+            questions : new progression(format(items))
         });
+        
     });
 
-}    
+    $scope.$watch("quiz.questions.current", function(thing){
 
-var kanjiController = function($resource, $location, $routeParams) {
+        vm.answer = "";
 
-    var Kanji = $resource("/api/kanji/"+$routeParams.level);
-    var vm = this;
-    
-    Kanji.get().$promise.then(function(o){
-        angular.extend(vm, {
-            questions : new progression(format(o.requested_information))
-        });
-    });
+        if(angular.isDefined(vm.questions) && vm.questions.current.ime){
+            wanakana.bind(document.getElementById('ime'));
+        } else {
+            wanakana.unbind(document.getElementById('ime'));            
+        }
+    })
 
 }
 
-var vocabController = function($resource, $location, $routeParams) {
+var QuestionFactory = function() {
+    return {
+        radicals : function(array) {
+            var out = []
+            angular.forEach(array, function(v, k) {
+                out.push({
+                    type: "radical",
+                    character: v.character,
+                    question: "Meaning",
+                    answers: v.meaning.split(","),
+                    unlocked: v.user_specific != null,
+                    background: "blue",
+                    ime : false
+                });
+            });
+            return out;            
+        },
+        kanji : function(array) {
+            var out = []
+            angular.forEach(array, function(v, k) {
+                out.push({
+                    type: "kanji",
+                    character: v.character,
+                    question: "Reading",
+                    answers: v[v.important_reading].split(","),
+                    unlocked: v.user_specific != null,
+                    background: "pink",
+                    ime: true
+                });
+            });
+            return out;
+        },
+        vocabulary : function(array) {
+            var out = []
+            angular.forEach(array, function(v, k) {
+                out.push({
+                    type: "kanji",
+                    character: v.character,
+                    question: "Reading",
+                    answers: v.kana.split(","),
+                    unlocked: v.user_specific != null,
+                    background: "purple",
+                    ime: true
+                });
+            });
+            return out;
+        }
 
-    console.log("vocab controller");
-    
-    var Vocab = $resource("/api/vocabulary/"+$routeParams.level);
-    var vm = this;
-    
-    Vocab.get().$promise.then(function(o){
-        angular.extend(vm, {
-            questions : new progression(format(o.requested_information))            
-        });
-    });
-
+    };
 }
 
 var config = function($interpolateProvider, $locationProvider, $routeProvider) {
@@ -138,17 +195,13 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
     $interpolateProvider.endSymbol('$}');
     $locationProvider.html5Mode(true);
 
-    $routeProvider.when("/kanji/:level", {
-        templateUrl : "/static/fragments/kanji.html",
-        controller : "kanjiControl",
+    $routeProvider.when("/:type/:level", {
+        templateUrl : "/static/fragments/quizbox.html",
+        controller : "quizControl",
         controllerAs : "quiz"
-    }).when("/vocabulary/:level", {
-        templateUrl : "/static/fragments/vocabulary.html",
-        controller : "vocabControl",
-        controllerAs : "quiz"
-    }).when("/radicals", {
-        templateUrl : "/static/fragments/radicals.html",
-        controller : "radicalControl",
+    }).when("/:type", {
+        templateUrl : "/static/fragments/quizbox.html",
+        controller : "quizControl",
         controllerAs : "quiz"
     });
     
@@ -169,9 +222,7 @@ var focuschain = function() {
 
 var app = angular.module("quizzer", ["ngResource", "ngRoute"]);
 
-app.controller("radicalControl", radicalController);
-app.controller("kanjiControl", kanjiController);
-app.controller("vocabControl", vocabController);
 app.config(config);
+app.controller("quizControl", quizController);
+app.factory("QuestionFactory", QuestionFactory);
 app.directive('focusNext', focuschain);
-

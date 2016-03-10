@@ -60,3 +60,13 @@ body {
     font-size: 1em;
     font-weight: bold;
 }
+
+#ime {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 3em;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+}
