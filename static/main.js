@@ -58,6 +58,7 @@ var format = function(array){
 var progression = function(linkedList) {
 
     return {
+        
         current : linkedList[0],
         flagged : [],
         count: linkedList.length,
@@ -99,13 +100,11 @@ var progression = function(linkedList) {
     
 }
 
-var quizController = function($resource, $location, $routeParams, $scope, QuestionFactory) {
+var quizController = function($resource, $location, $routeParams, $scope, $q, QuestionFactory) {
 
-    var apis = {
-        kanji : $resource("/api/kanji/"+$routeParams.level),
-        radicals : $resource("/api/radicals"),
-        vocabulary : $resource("/api/vocabulary/"+$routeParams.level),
-    }
+    var kanji = $resource("/api/kanji/"+$routeParams.level).get().$promise;
+    var radicals = $resource("/api/radicals").get().$promise;
+    var vocabulary = $resource("/api/vocabulary/"+$routeParams.level).get().$promise;
 
     var factories = {
         kanji : QuestionFactory.kanji,
@@ -115,14 +114,16 @@ var quizController = function($resource, $location, $routeParams, $scope, Questi
     
     var vm = this;
     
-    apis[$routeParams.type].get().$promise.then(function(o){
+    $q.all([kanji, radicals, vocabulary]).then(function(results){
 
-        var items = factories[$routeParams.type](o.requested_information);
-
+        var items = factories.kanji(results[0].requested_information);
+        items = items.concat(factories.radicals(results[1].requested_information));
+        items = items.concat(factories.vocabulary(results[2].requested_information));
+        
         angular.extend(vm, {
             questions : new progression(format(items))
         });
-        
+
     });
 
     $scope.$watch("quiz.questions.current", function(thing){
@@ -195,11 +196,7 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
     $interpolateProvider.endSymbol('$}');
     $locationProvider.html5Mode(true);
 
-    $routeProvider.when("/:type/:level", {
-        templateUrl : "/static/fragments/quizbox.html",
-        controller : "quizControl",
-        controllerAs : "quiz"
-    }).when("/:type", {
+    $routeProvider.when("/:level", {
         templateUrl : "/static/fragments/quizbox.html",
         controller : "quizControl",
         controllerAs : "quiz"
