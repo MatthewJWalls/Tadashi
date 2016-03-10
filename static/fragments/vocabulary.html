@@ -7,6 +7,3 @@
 <button id="show-button" focus-next="next-button" ng-show="!answered" ng-click="answered=true">show</button>
 <button id="next-button" focus-next="show-button" ng-show="answered" ng-click="quiz.questions.next(); answered=false">next</button>
 <div id="counter">{$ quiz.questions.count $}</div>
-</div>
-  
-

@@ -6,4 +6,4 @@
 <h3 ng-show="answered" ng-bind="quiz.questions.current[quiz.questions.current.important_reading]"></h3>
 <button id="show-button" focus-next="next-button" ng-show="!answered" ng-click="answered=true">show</button>
 <button id="next-button" focus-next="show-button" ng-show="answered" ng-click="quiz.questions.next(); answered=false">next</button>
-<p class="bottom-aligned">remaining: {$ quiz.questions.count $}</p>
+<div id="counter">{$ quiz.questions.count $}</div>
