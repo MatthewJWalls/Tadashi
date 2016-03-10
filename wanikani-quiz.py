@@ -19,17 +19,10 @@ API_KEY = os.environ['WANIKANI_API_KEY']
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-@app.route("/radicals")
-def radicals():
-    return render_template('radicals.html')
-
-@app.route("/kanji/<level>")
-def kanji(level):
-    return render_template('kanji.html')
-
-@app.route("/vocabulary/<level>")
-def vocab(level):
-    return render_template('vocabulary.html')
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def index(path):
+    return render_template('index.html')
 
 @app.route("/api/radicals")
 def api_radicals():

@@ -1,0 +1,17 @@
+<div>
+
+  <div class="centered">
+    <span class="purple box">
+      <h1 ng-bind="quiz.questions.current.character"></h1>
+    </span>
+    <h2>Vocab <strong>Meaning</strong> and <strong>Reading</strong></h2>
+    <h3 ng-show="answered" ng-bind="quiz.questions.current.meaning"></h3>
+    <h3 ng-show="answered" ng-bind="quiz.questions.current.kana"></h3>
+    <button id="show-button" focus-next="next-button" ng-show="!answered" ng-click="answered=true">show</button>
+    <button id="next-button" focus-next="show-button" ng-show="answered" ng-click="quiz.questions.next(); answered=false">next</button>
+    
+  </div>
+  
+  <p>remaining: {$ quiz.questions.count $}</p>
+  
+</div>

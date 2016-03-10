@@ -91,10 +91,9 @@ var radicalController = function($resource) {
 
 }    
 
-var kanjiController = function($resource, $location) {
+var kanjiController = function($resource, $location, $routeParams) {
 
-    var level = $location.path().split("/")[2];
-    var Kanji = $resource("/api/kanji/"+level);
+    var Kanji = $resource("/api/kanji/"+$routeParams.level);
     var vm = this;
     
     Kanji.get().$promise.then(function(o){
@@ -105,10 +104,11 @@ var kanjiController = function($resource, $location) {
 
 }
 
-var vocabController = function($resource, $location) {
+var vocabController = function($resource, $location, $routeParams) {
 
-    var level = $location.path().split("/")[2];    
-    var Vocab = $resource("/api/vocabulary/"+level);
+    console.log("vocab controller");
+    
+    var Vocab = $resource("/api/vocabulary/"+$routeParams.level);
     var vm = this;
     
     Vocab.get().$promise.then(function(o){
@@ -119,10 +119,26 @@ var vocabController = function($resource, $location) {
 
 }
 
-var config = function($interpolateProvider, $locationProvider) {
+var config = function($interpolateProvider, $locationProvider, $routeProvider) {
+
     $interpolateProvider.startSymbol('{$');
     $interpolateProvider.endSymbol('$}');
-    $locationProvider.html5Mode(true);    
+    $locationProvider.html5Mode(true);
+
+    $routeProvider.when("/kanji/:level", {
+        templateUrl : "/static/fragments/kanji.html",
+        controller : "kanjiControl",
+        controllerAs : "quiz"
+    }).when("/vocabulary/:level", {
+        templateUrl : "/static/fragments/vocabulary.html",
+        controller : "vocabControl",
+        controllerAs : "quiz"
+    }).when("/radicals", {
+        templateUrl : "/static/fragments/radicals.html",
+        controller : "radicalControl",
+        controllerAs : "quiz"
+    });
+    
 }
 
 var focuschain = function() {
@@ -138,7 +154,7 @@ var focuschain = function() {
     };
 }
 
-var app = angular.module("quizzer", ["ngResource"]);
+var app = angular.module("quizzer", ["ngResource", "ngRoute"]);
 
 app.controller("radicalControl", radicalController);
 app.controller("kanjiControl", kanjiController);
