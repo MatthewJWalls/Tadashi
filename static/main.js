@@ -58,9 +58,10 @@ var progression = function(linkedList) {
         count: linkedList.length,
 
         answer : function(ans) {
-            return this.current.answers.map(
-                function(f){ return f.trim(); }
-            ).indexOf(ans) != -1;
+            var normalisedAns = ans.replace(" ", "\\W*");
+            return this.current.answers.filter(
+                function(f){ return f.match(normalisedAns) !== null }
+            ).length > 0;
         },
 
         next : function() {
@@ -248,6 +249,7 @@ var imeDirective = function() {
     return {
         restrict: "AC",
         link: function(scope, elem, attrs) {
+            
             elem.bind("keypress", function(event){
                 if(event.which == 13){
                     scope.$apply(function() {
@@ -259,6 +261,7 @@ var imeDirective = function() {
                     });
                 }
             });
+            
         }
     };
 }
