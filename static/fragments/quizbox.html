@@ -4,7 +4,9 @@
 
 <h2>{$quiz.questions.current.type$} <strong>{$quiz.questions.current.question$}</strong></h2>
 
-<div class="form-group has-feedback ime-form" ng-class="quiz.state">
+<!-- IME form -->
+
+<div ng-ime class="form-group has-feedback ime-form" ng-class="quiz.state">
   <input ng-model="quiz.answer" type="text" class="form-control input-lg" id="ime" autocapitalize="off">
   <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="quiz.state=='has-success'"></span>
   <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="quiz.state=='has-error'"></span>

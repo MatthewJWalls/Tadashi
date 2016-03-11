@@ -21,10 +21,10 @@ var shoofle = function(array) {
 var ringify = function(array) {
 
     var linkedlist = shoofle(array);
-        
+
     for(var i = 0; i < linkedlist.length; i++) {
         linkedlist[i].next = linkedlist[i+1];
-        linkedlist[i].last = false;        
+        linkedlist[i].last = false;
     }
 
     linkedlist[linkedlist.length-1].next = linkedlist[0];
@@ -38,11 +38,11 @@ var ringify = function(array) {
 // something we can work with.
 
 var format = function(array){
-    
+
     var workingSet = array.filter(function(v, k){
         return v.unlocked && v.character != null;
     });
-    
+
     return ringify(shoofle(workingSet));
 }
 
@@ -52,26 +52,19 @@ var format = function(array){
 var progression = function(linkedList) {
 
     return {
-        
+
         current : linkedList[0],
         flagged : [],
         count: linkedList.length,
 
         answer : function(ans) {
-
-            console.log("Checking " + ans + " against: ");
-
-            console.log(this.current.answers.map(
-                function(f){ return f.trim(); }
-            ));
-            
             return this.current.answers.map(
                 function(f){ return f.trim(); }
             ).indexOf(ans) != -1;
         },
-        
+
         next : function() {
-            
+
             if(this.current.last && this.flagged.length > 0) {
                 this.lightning();
             } else if(this.current.last) {
@@ -79,40 +72,40 @@ var progression = function(linkedList) {
             } else {
                 this.count--;
             }
-            
+
             this.current = this.current.next;
 
         },
-        
+
         flag : function() {
             this.flagged.push(this.current);
         },
-        
+
         lightning : function() {
             this.current = format(this.flagged)[0];
             this.count = this.flagged.length;
         }
 
     };
-    
+
 }
 
 var quizController = function($scope, $q, KanjiService, VocabularyService, RadicalService) {
 
     var vm = this;
-    
+
     var promises = [
         KanjiService.all(),
         VocabularyService.all(),
         RadicalService.all()
     ];
-    
+
     var loadQuestionsIntoScope = function(res) {
-        
+
         var items = res[0].concat(res[1].concat(res[2]))
-        
+
         angular.extend(vm, {
-            
+
             questions : new progression(format(items)),
             answered : false,
             state : "",
@@ -121,29 +114,29 @@ var quizController = function($scope, $q, KanjiService, VocabularyService, Radic
             bindIME : function() {
 
                 var ime = document.getElementById('ime');
-                
+
                 wanakana.unbind(ime);
-                
+
                 if(vm.questions.current.ime){
                     wanakana.bind(ime);
                 }
-                
+
             },
-            
+
             attempt : function() {
 
                 if(vm.questions.current.ime) {
                     vm.answer = wanakana.toKana(vm.answer);
                 }
-                
+
                 if(vm.questions.answer(vm.answer)){
                     vm.state = "has-success";
-                    vm.answered = true;                    
+                    vm.answered = true;
                 } else {
                     vm.state = "has-error";
                     vm.answered = true;
                 }
-                
+
             },
 
             next : function() {
@@ -153,23 +146,23 @@ var quizController = function($scope, $q, KanjiService, VocabularyService, Radic
                 vm.answer = "";
                 vm.bindIME();
             }
-            
+
         });
 
         vm.bindIME();
-        
+
     };
 
     $q.all(promises).then(loadQuestionsIntoScope);
- 
+
 }
 
 var VocabularyService = function($resource, $routeParams) {
 
     var VocabularyResource = $resource("/api/vocabulary/"+$routeParams.level);
-    
+
     return {
-        
+
         all : function() {
             return VocabularyResource.get().$promise.then(function(res){
                 return res.requested_information.map(function(v, k) {
@@ -191,9 +184,9 @@ var VocabularyService = function($resource, $routeParams) {
 var KanjiService = function($resource, $routeParams) {
 
     var KanjiResource = $resource("/api/kanji/"+$routeParams.level);
-    
+
     return {
-        
+
         all : function() {
             return KanjiResource.get().$promise.then(function(res){
                 return res.requested_information.map(function(v, k) {
@@ -215,9 +208,9 @@ var KanjiService = function($resource, $routeParams) {
 var RadicalService = function($resource, $routeParams) {
 
     var RadicalResource = $resource("/api/radicals");
-    
+
     return {
-        
+
         all : function() {
             return RadicalResource.get().$promise.then(function(res){
                 return res.requested_information.map(function(v, k) {
@@ -247,7 +240,29 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
         controller : "quizControl",
         controllerAs : "quiz"
     });
-    
+
+}
+
+var imeDirective = function() {
+
+    return {
+        restrict: 'AC',
+        link: function(scope, elem, attrs) {
+            elem.bind("keypress", function(event){
+                if(event.which == 13){
+                    scope.$apply(function() {
+                        if(scope.quiz.answered){
+                            console.log("going next");
+                            scope.quiz.next();
+                        } else {
+                            console.log("making attempt");
+                            scope.quiz.attempt();
+                        }
+                    });
+                }
+            });
+        }
+    };
 }
 
 var app = angular.module("quizzer", ["ngResource", "ngRoute"]);
@@ -257,4 +272,4 @@ app.controller("quizControl", quizController);
 app.factory("RadicalService", RadicalService);
 app.factory("KanjiService", KanjiService);
 app.factory("VocabularyService", VocabularyService);
-
+app.directive("ngIme", imeDirective);
