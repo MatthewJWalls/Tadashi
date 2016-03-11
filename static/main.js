@@ -58,6 +58,13 @@ var progression = function(linkedList) {
         count: linkedList.length,
 
         answer : function(ans) {
+
+            console.log("Checking " + ans + " against: ");
+
+            console.log(this.current.answers.map(
+                function(f){ return f.trim(); }
+            ));
+            
             return this.current.answers.map(
                 function(f){ return f.trim(); }
             ).indexOf(ans) != -1;
