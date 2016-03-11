@@ -61,12 +61,14 @@ body {
     font-weight: bold;
 }
 
-#ime {
+.ime-form {
     width: 60%;
     margin-left: auto;
     margin-right: auto;
-    font-size: 3em;
-    font-weight: bold;
-    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.ime-form>input {
     text-align: center;
 }

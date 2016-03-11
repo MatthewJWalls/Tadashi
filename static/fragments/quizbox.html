@@ -4,18 +4,29 @@
 
 <h2>{$quiz.questions.current.type$} <strong>{$quiz.questions.current.question$}</strong></h2>
 
-<!-- before answering -->
-<div ng-show="!answered">
-  <input ng-model="quiz.answer" id="ime"/>
-  <button class="btn btn-success" id="show-button" focus-next="next-button" ng-click="answered=true; quiz.questions.answer(quiz.answer)">show</button>
-  <button class="btn btn-danger" id="flag-button" ng-click="quiz.questions.flag();">flag</button>    
+<div class="form-group has-feedback ime-form" ng-class="quiz.state">
+  <input ng-model="quiz.answer" type="text" class="form-control input-lg" id="ime">
+  <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="quiz.state=='has-success'"></span>
+  <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="quiz.state=='has-error'"></span>
 </div>
 
-<!-- after answering -->
-<div ng-show="answered">
-  <h3 ng-bind="quiz.questions.current.answers"></h3>
-  <button class="btn btn-success" id="next-button" focus-next="show-button" ng-click="quiz.questions.next(); answered=false">next</button>
-  <button class="btn btn-danger" id="flag-button" ng-click="quiz.questions.flag();">flag</button>  
+<!-- before answering -->
+<div ng-show="!quiz.answered">
+  <button class="btn btn-success" ng-click="quiz.attempt()">show</button>
+  <button class="btn btn-danger" ng-click="quiz.questions.flag();">flag</button>    
+</div>
+
+<!-- after answering correctly -->
+<div ng-show="quiz.state=='has-success'">
+  <button class="btn btn-success" ng-click="quiz.next();">next</button>
+  <button class="btn btn-danger" ng-click="quiz.questions.flag();">flag</button>  
+</div>
+
+<!-- after answering incorrectly -->
+<div ng-show="quiz.state=='has-error'">
+  <h2 ng-bind="quiz.questions.current.answers"></h2>
+  <button class="btn btn-success" ng-click="quiz.next();">next</button>
+  <button class="btn btn-danger" ng-click="quiz.questions.flag();">flag</button>  
 </div>
 
 <div id="counter">{$ quiz.questions.count $}</div>

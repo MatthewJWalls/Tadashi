@@ -58,13 +58,7 @@ var progression = function(linkedList) {
         count: linkedList.length,
 
         answer : function(ans) {
-            
-            if(this.current.answers.indexOf(ans) != -1) {
-                console.log("correct");
-            } else {
-                console.log("incorrect");
-            }
-            
+            return this.current.answers.map(String.trim).indexOf(ans) != -1;
         },
         
         next : function() {
@@ -109,7 +103,30 @@ var quizController = function($scope, $q, KanjiService, VocabularyService, Radic
         var items = res[0].concat(res[1].concat(res[2]))
         
         angular.extend(vm, {
-            questions : new progression(format(items))
+            
+            questions : new progression(format(items)),
+            answered : false,
+            state : "",
+            answer : "",
+
+            attempt : function() {                
+                if(vm.questions.answer(vm.answer)){
+                    console.log("correct");
+                    vm.state = "has-success";
+                    vm.answered = true;                    
+                } else {
+                    console.log("incorrect");                    
+                    vm.state = "has-error";
+                    vm.answered = true;                    
+                }
+            },
+
+            next : function() {
+                vm.questions.next();
+                vm.answered = false;
+                vm.state = "";
+            }
+            
         });
         
     };
@@ -217,19 +234,6 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
     
 }
 
-var focuschain = function() {
-    return {
-        restrict: 'AC',
-        link: function(vm, elem, attrs) {
-            elem.bind("click", function(){
-                var name = attrs["focusNext"];
-                var elem = angular.element(document.getElementById(name));
-                elem[0].focus();
-            });            
-        },
-    };
-}
-
 var app = angular.module("quizzer", ["ngResource", "ngRoute"]);
 
 app.config(config);
@@ -237,4 +241,4 @@ app.controller("quizControl", quizController);
 app.factory("RadicalService", RadicalService);
 app.factory("KanjiService", KanjiService);
 app.factory("VocabularyService", VocabularyService);
-app.directive('focusNext', focuschain);
+
