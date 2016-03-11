@@ -58,7 +58,9 @@ var progression = function(linkedList) {
         count: linkedList.length,
 
         answer : function(ans) {
-            return this.current.answers.map(String.trim).indexOf(ans) != -1;
+            return this.current.answers.map(
+                function(f){ return f.trim(); }
+            ).indexOf(ans) != -1;
         },
         
         next : function() {
