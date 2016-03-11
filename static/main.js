@@ -193,7 +193,7 @@ var KanjiService = function($resource, $routeParams) {
 
 var RadicalService = function($resource, $routeParams) {
 
-    var RadicalResource = $resource("/api/radicals");
+    var RadicalResource = $resource("/api/radicals/"+$routeParams.level);
 
     return {
 
@@ -248,7 +248,6 @@ var imeDirective = function() {
             });
 
             scope.$watch("quiz.questions.current", function(n, o){
-                console.log(elem[0]);
                 wanakana.unbind(elem[0]);
                 if(angular.isDefined(scope.quiz.questions) && scope.quiz.questions.current.ime){
                     wanakana.bind(elem[0]);

@@ -24,9 +24,9 @@ app.config.from_object(__name__)
 def index(path):
     return render_template('index.html')
 
-@app.route("/api/radicals")
-def api_radicals():
-    res = requests.get("https://www.wanikani.com/api/user/%s/radicals" % API_KEY)
+@app.route("/api/radicals/<level>")
+def api_radicals(level):
+    res = requests.get("https://www.wanikani.com/api/user/%s/radicals/%s" % (API_KEY, level))
     return res.content
 
 @app.route("/api/kanji/<level>")
