@@ -118,42 +118,49 @@ var quizController = function($scope, $q, KanjiService, VocabularyService, Radic
             state : "",
             answer : "",
 
-            attempt : function() {                
+            bindIME : function() {
+
+                var ime = document.getElementById('ime');
+                
+                wanakana.unbind(ime);
+                
+                if(vm.questions.current.ime){
+                    wanakana.bind(ime);
+                }
+                
+            },
+            
+            attempt : function() {
+
+                if(vm.questions.current.ime) {
+                    vm.answer = wanakana.toKana(vm.answer);
+                }
+                
                 if(vm.questions.answer(vm.answer)){
-                    console.log("correct");
                     vm.state = "has-success";
                     vm.answered = true;                    
                 } else {
-                    console.log("incorrect");                    
                     vm.state = "has-error";
-                    vm.answered = true;                    
+                    vm.answered = true;
                 }
+                
             },
 
             next : function() {
                 vm.questions.next();
                 vm.answered = false;
                 vm.state = "";
+                vm.answer = "";
+                vm.bindIME();
             }
             
         });
+
+        vm.bindIME();
         
     };
 
-    var clearOnWatch = function(thing){
-        
-        vm.answer = "";
-        
-        if(angular.isDefined(vm.questions) && vm.questions.current.ime){
-            wanakana.bind(document.getElementById('ime'));
-        } else {
-            wanakana.unbind(document.getElementById('ime'));            
-        }
-        
-    };
-    
     $q.all(promises).then(loadQuestionsIntoScope);
-    $scope.$watch("quiz.questions.current", clearOnWatch);
  
 }
 
