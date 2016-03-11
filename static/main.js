@@ -246,16 +246,14 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
 var imeDirective = function() {
 
     return {
-        restrict: 'AC',
+        restrict: "AC",
         link: function(scope, elem, attrs) {
             elem.bind("keypress", function(event){
                 if(event.which == 13){
                     scope.$apply(function() {
                         if(scope.quiz.answered){
-                            console.log("going next");
                             scope.quiz.next();
                         } else {
-                            console.log("making attempt");
                             scope.quiz.attempt();
                         }
                     });
