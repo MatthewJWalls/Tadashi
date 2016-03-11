@@ -112,18 +112,6 @@ var quizController = function($scope, $q, KanjiService, VocabularyService, Radic
             state : "",
             answer : "",
 
-            bindIME : function() {
-
-                var ime = document.getElementById('ime');
-
-                wanakana.unbind(ime);
-
-                if(vm.questions.current.ime){
-                    wanakana.bind(ime);
-                }
-
-            },
-
             attempt : function() {
 
                 if(vm.questions.current.ime) {
@@ -145,12 +133,9 @@ var quizController = function($scope, $q, KanjiService, VocabularyService, Radic
                 vm.answered = false;
                 vm.state = "";
                 vm.answer = "";
-                vm.bindIME();
             }
 
         });
-
-        vm.bindIME();
 
     };
 
@@ -249,7 +234,7 @@ var imeDirective = function() {
     return {
         restrict: "AC",
         link: function(scope, elem, attrs) {
-            
+
             elem.bind("keypress", function(event){
                 if(event.which == 13){
                     scope.$apply(function() {
@@ -261,7 +246,15 @@ var imeDirective = function() {
                     });
                 }
             });
-            
+
+            scope.$watch("quiz.questions.current", function(n, o){
+                console.log(elem[0]);
+                wanakana.unbind(elem[0]);
+                if(angular.isDefined(scope.quiz.questions) && scope.quiz.questions.current.ime){
+                    wanakana.bind(elem[0]);
+                }
+            });
+
         }
     };
 }
