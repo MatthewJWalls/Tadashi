@@ -39,14 +39,8 @@ var ringify = function(array) {
 
 var format = function(array){
     
-    var workingSet = []
-    
-    angular.forEach(array, function(v, k){
-        
-        if(v.unlocked && v.character != null) {
-            workingSet.push(v);
-        }
-        
+    var workingSet = array.filter(function(v, k){
+        return v.unlocked && v.character != null;
     });
     
     return ringify(shoofle(workingSet));
@@ -100,93 +94,112 @@ var progression = function(linkedList) {
     
 }
 
-var quizController = function($resource, $location, $routeParams, $scope, $q, QuestionFactory) {
+var quizController = function($scope, $q, KanjiService, VocabularyService, RadicalService) {
 
-    var kanji = $resource("/api/kanji/"+$routeParams.level).get().$promise;
-    var radicals = $resource("/api/radicals").get().$promise;
-    var vocabulary = $resource("/api/vocabulary/"+$routeParams.level).get().$promise;
-
-    var factories = {
-        kanji : QuestionFactory.kanji,
-        radicals : QuestionFactory.radicals,
-        vocabulary : QuestionFactory.vocabulary
-    }
-    
     var vm = this;
     
-    $q.all([kanji, radicals, vocabulary]).then(function(results){
-
-        var items = factories.kanji(results[0].requested_information);
-        items = items.concat(factories.radicals(results[1].requested_information));
-        items = items.concat(factories.vocabulary(results[2].requested_information));
+    var promises = [
+        KanjiService.all(),
+        VocabularyService.all(),
+        RadicalService.all()
+    ];
+    
+    var loadQuestionsIntoScope = function(res) {
+        
+        var items = res[0].concat(res[1].concat(res[2]))
         
         angular.extend(vm, {
             questions : new progression(format(items))
         });
+        
+    };
 
-    });
-
-    $scope.$watch("quiz.questions.current", function(thing){
-
+    var clearOnWatch = function(thing){
+        
         vm.answer = "";
-
+        
         if(angular.isDefined(vm.questions) && vm.questions.current.ime){
             wanakana.bind(document.getElementById('ime'));
         } else {
             wanakana.unbind(document.getElementById('ime'));            
         }
-    })
-
+        
+    };
+    
+    $q.all(promises).then(loadQuestionsIntoScope);
+    $scope.$watch("quiz.questions.current", clearOnWatch);
+ 
 }
 
-var QuestionFactory = function() {
-    return {
-        radicals : function(array) {
-            var out = []
-            angular.forEach(array, function(v, k) {
-                out.push({
-                    type: "radical",
-                    character: v.character,
-                    question: "Meaning",
-                    answers: v.meaning.split(","),
-                    unlocked: v.user_specific != null,
-                    background: "blue",
-                    ime : false
-                });
-            });
-            return out;            
-        },
-        kanji : function(array) {
-            var out = []
-            angular.forEach(array, function(v, k) {
-                out.push({
-                    type: "kanji",
-                    character: v.character,
-                    question: "Reading",
-                    answers: v[v.important_reading].split(","),
-                    unlocked: v.user_specific != null,
-                    background: "pink",
-                    ime: true
-                });
-            });
-            return out;
-        },
-        vocabulary : function(array) {
-            var out = []
-            angular.forEach(array, function(v, k) {
-                out.push({
-                    type: "kanji",
-                    character: v.character,
-                    question: "Reading",
-                    answers: v.kana.split(","),
-                    unlocked: v.user_specific != null,
-                    background: "purple",
-                    ime: true
-                });
-            });
-            return out;
-        }
+var VocabularyService = function($resource, $routeParams) {
 
+    var VocabularyResource = $resource("/api/vocabulary/"+$routeParams.level);
+    
+    return {
+        
+        all : function() {
+            return VocabularyResource.get().$promise.then(function(res){
+                return res.requested_information.map(function(v, k) {
+                    return {
+                        type: "vocabulary",
+                        character: v.character,
+                        question: "Reading",
+                        answers: v.kana.split(","),
+                        unlocked: v.user_specific != null,
+                        background: "purple",
+                        ime: true
+                    };
+                });
+            });
+        },
+    };
+}
+
+var KanjiService = function($resource, $routeParams) {
+
+    var KanjiResource = $resource("/api/kanji/"+$routeParams.level);
+    
+    return {
+        
+        all : function() {
+            return KanjiResource.get().$promise.then(function(res){
+                return res.requested_information.map(function(v, k) {
+                    return {
+                        type: "kanji",
+                        character: v.character,
+                        question: "Reading",
+                        answers: v[v.important_reading].split(","),
+                        unlocked: v.user_specific != null,
+                        background: "pink",
+                        ime: true
+                    };
+                });
+            });
+        },
+    };
+}
+
+var RadicalService = function($resource, $routeParams) {
+
+    var RadicalResource = $resource("/api/radicals");
+    
+    return {
+        
+        all : function() {
+            return RadicalResource.get().$promise.then(function(res){
+                return res.requested_information.map(function(v, k) {
+                    return {
+                        type: "radical",
+                        character: v.character,
+                        question: "Meaning",
+                        answers: v.meaning.split(","),
+                        unlocked: v.user_specific != null,
+                        background: "blue",
+                        ime: false
+                    };
+                });
+            });
+        },
     };
 }
 
@@ -221,5 +234,7 @@ var app = angular.module("quizzer", ["ngResource", "ngRoute"]);
 
 app.config(config);
 app.controller("quizControl", quizController);
-app.factory("QuestionFactory", QuestionFactory);
+app.factory("RadicalService", RadicalService);
+app.factory("KanjiService", KanjiService);
+app.factory("VocabularyService", VocabularyService);
 app.directive('focusNext', focuschain);
