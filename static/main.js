@@ -151,8 +151,9 @@ var VocabularyService = function($resource, $routeParams) {
 
         all : function() {
             return VocabularyResource.get().$promise.then(function(res){
-                return res.requested_information.map(function(v, k) {
-                    return {
+                var out = [];
+                angular.forEach(res.requested_information, function(v, k) {
+                    out.push({
                         type: "vocabulary",
                         character: v.character,
                         question: "Reading",
@@ -160,8 +161,18 @@ var VocabularyService = function($resource, $routeParams) {
                         unlocked: v.user_specific != null,
                         background: "purple",
                         ime: true
-                    };
+                    });
+                    out.push({
+                        type: "vocabulary",
+                        character: v.character,
+                        question: "Meaning",
+                        answers: v.meaning.split(","),
+                        unlocked: v.user_specific != null,
+                        background: "purple",
+                        ime: false
+                    });
                 });
+                return out;
             });
         },
     };
@@ -175,8 +186,9 @@ var KanjiService = function($resource, $routeParams) {
 
         all : function() {
             return KanjiResource.get().$promise.then(function(res){
-                return res.requested_information.map(function(v, k) {
-                    return {
+                var out = [];
+                angular.forEach(res.requested_information, function(v, k) {
+                    out.push({
                         type: "kanji",
                         character: v.character,
                         question: "Reading",
@@ -184,8 +196,18 @@ var KanjiService = function($resource, $routeParams) {
                         unlocked: v.user_specific != null,
                         background: "pink",
                         ime: true
-                    };
+                    });
+                    out.push({
+                        type: "kanji",
+                        character: v.character,
+                        question: "Meaning",
+                        answers: v.meaning.split(","),
+                        unlocked: v.user_specific != null,
+                        background: "pink",
+                        ime: false
+                    });
                 });
+                return out;
             });
         },
     };
