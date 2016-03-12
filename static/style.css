@@ -1,4 +1,6 @@
 
+/* animations */
+
 @keyframes heartbeat {
     0% {
         transform: scale(1, 1);
@@ -11,6 +13,13 @@
     }   
 }
 
+@keyframes dissolve {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* global elements */
+
 html, body {
     height: 100%;
 }
@@ -18,6 +27,14 @@ html, body {
 body {
     font-family: Meiryo;
 }
+
+button:hover{
+    animation-name: heartbeat;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+}
+
+/* loading panel */
 
 .loading-panel {
     position: fixed;
@@ -41,11 +58,17 @@ body {
     text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.22);
 }
 
+.loading-panel.ng-hide-add {
+    animation: 0.7s dissolve ease;
+}
+
 .beating {
     animation-name: heartbeat;
     animation-duration: 4.5s;
     animation-iteration-count: infinite;
 }
+
+/* quiz box */
 
 .box {
     display: inline-block;
@@ -90,6 +113,14 @@ body {
     font-size: 32vmin;
 }
 
+#quiz-panel h1.ng-leave {
+    animation: 0.5s dissolve ease;
+}
+
+#quiz-panel h1.ng-mode {
+    animation: 0.5s dissolve ease;
+}
+
 #quiz-panel h2 {
     font-size: 6vmin;
 }
@@ -101,6 +132,8 @@ body {
     font-size: 1em;
     font-weight: bold;
 }
+
+/* ime control */
 
 .ime-form {
     width: 60%;

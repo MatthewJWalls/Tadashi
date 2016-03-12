@@ -283,7 +283,7 @@ var imeDirective = function() {
     };
 }
 
-var app = angular.module("quizzer", ["ngResource", "ngRoute"]);
+var app = angular.module("quizzer", ["ngResource", "ngRoute", "ngAnimate"]);
 
 app.config(config);
 app.controller("quizControl", quizController);
