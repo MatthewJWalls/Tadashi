@@ -274,7 +274,7 @@ var imeDirective = function() {
 
             scope.$watch("quiz.questions.current", function(n, o){
                 wanakana.unbind(elem[0]);
-                if(angular.isDefined(scope.quiz.questions) && scope.quiz.questions.current.ime){
+                if(scope.finished && scope.quiz.questions.current.ime){
                     wanakana.bind(elem[0]);
                 }
             });
