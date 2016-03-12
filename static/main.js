@@ -20,17 +20,15 @@ var shoofle = function(array) {
 
 var ringify = function(array) {
 
-    var linkedlist = shoofle(array);
-
-    for(var i = 0; i < linkedlist.length; i++) {
-        linkedlist[i].next = linkedlist[i+1];
-        linkedlist[i].last = false;
+    for(var i = 0; i < array.length; i++) {
+        array[i].next = array[i+1];
+        array[i].last = false;
     }
 
-    linkedlist[linkedlist.length-1].next = linkedlist[0];
-    linkedlist[linkedlist.length-1].last = true;
+    array[array.length-1].next = array[0];
+    array[array.length-1].last = true;
 
-    return linkedlist;
+    return array;
 
 }
 
