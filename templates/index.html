@@ -19,7 +19,14 @@
 
   <body>
 
-    <div id="quiz-panel" ng-view></div>
+    <div class="loading-panel" ng-hide="finished">
+      <div class="loading-inner">
+        <h1 class="beating">漢字</h1>
+        <h4>loading...</h4>
+      </div>
+    </div>
+
+    <div ng-cloak id="quiz-panel" ng-view></div>
       
   </body>
 

@@ -91,7 +91,7 @@ var progression = function(linkedList) {
 
 }
 
-var quizController = function($scope, $q, KanjiService, VocabularyService, RadicalService) {
+var quizController = function($rootScope, $q, KanjiService, VocabularyService, RadicalService) {
 
     var vm = this;
 
@@ -136,6 +136,8 @@ var quizController = function($scope, $q, KanjiService, VocabularyService, Radic
             }
 
         });
+
+        $rootScope.finished = true;
 
     };
 
@@ -214,12 +216,13 @@ var KanjiService = function($resource, $routeParams) {
 }
 
 var RadicalService = function($resource, $routeParams) {
-
+    
     var RadicalResource = $resource("/api/radicals/"+$routeParams.level);
 
     return {
 
         all : function() {
+
             return RadicalResource.get().$promise.then(function(res){
                 return res.requested_information.map(function(v, k) {
                     return {

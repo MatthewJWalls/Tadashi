@@ -1,9 +1,50 @@
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(1.1, 1.1);
+    }
+    100% {
+        transform: scale(1, 1);
+    }   
+}
+
 html, body {
     height: 100%;
 }
 
 body {
     font-family: Meiryo;
+}
+
+.loading-panel {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    background-color: #4babf2;
+    color: white;
+    z-index: 999;
+    text-align: center;
+}
+
+.loading-panel>.loading-inner {
+    display: block;
+    top: 25%;
+    position: relative;
+}
+
+.loading-panel h1 {
+    font-size: 20vmin;
+    text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.22);
+}
+
+.beating {
+    animation-name: heartbeat;
+    animation-duration: 4.5s;
+    animation-iteration-count: infinite;
 }
 
 .box {
