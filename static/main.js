@@ -47,7 +47,7 @@ var format = function(array){
 // tracks progress on a given linkedList, and
 // provides a next() function to iterate through it
 
-var progression = function(linkedList) {
+var Progression = function(linkedList) {
 
     return {
 
@@ -105,7 +105,7 @@ var quizController = function($rootScope, $q, KanjiService, VocabularyService, R
 
         angular.extend(vm, {
 
-            questions : new progression(format(items)),
+            questions : new Progression(format(items)),
             answered : false,
             state : "",
             answer : "",

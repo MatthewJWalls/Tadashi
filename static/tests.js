@@ -59,7 +59,7 @@ describe("question formating", function() {
         var mock = [
             {character: null, unlocked: true},
             {character: "a", unlocked: true},
-            {character: "b", unlocked: true},            
+            {character: "b", unlocked: true},
         ];
 
         expect(format(mock).length).toEqual(2);
@@ -70,7 +70,7 @@ describe("question formating", function() {
 
         var mock = [
             {character: "a", unlocked: true},
-            {character: "b", unlocked: false},            
+            {character: "b", unlocked: false},
         ];
 
         expect(format(mock).length).toEqual(1);
@@ -81,7 +81,7 @@ describe("question formating", function() {
 
         var mock = [
             {character: "a", unlocked: true},
-            {character: "b", unlocked: true},            
+            {character: "b", unlocked: true},
         ];
 
         expect(format(mock)[0].next.character).toBeDefined();
@@ -90,3 +90,28 @@ describe("question formating", function() {
 
 });
 
+describe("Question progressions", function() {
+
+    it("iterates through the questions buffer", function() {
+
+        var mock = [
+            {character: "a", unlocked: true},
+            {character: "b", unlocked: true},
+        ];
+
+        mock[0].next = mock[1];
+        mock[1].next = mock[0];
+        mock[0].last = false;
+        mock[1].last = true;
+
+        var prog = new Progression(mock);
+
+        expect(prog.current.character).toEqual("a");
+        prog.next();
+        expect(prog.current.character).toEqual("b");
+        prog.next();
+        expect(prog.current.character).toEqual("a");
+        
+    });
+
+});
