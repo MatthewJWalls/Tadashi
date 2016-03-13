@@ -134,7 +134,15 @@ var ParticleService = function($resource, $routeParams) {
             return [{
                 item : "に",
                 question : "What's that particle?",
+                answers : ["time", "destination"]
+            },{
+                item : "で",
+                question : "What's that particle?",
                 answers : ["place"]
+            },{
+                item : "は",
+                question : "What's that particle?",
+                answers : ["topic marker", "topic"]
             }];
         },
     };
