@@ -32,16 +32,10 @@ var ringify = function(array) {
 
 }
 
-// process the quiz results array (from the API) into
-// something we can work with.
+// process the quiz results into something we can work with.
 
 var format = function(array){
-
-    var workingSet = array.filter(function(v, k){
-        return v.unlocked && v.character != null;
-    });
-
-    return ringify(shoofle(workingSet));
+    return ringify(shoofle(array));
 }
 
 // tracks progress on a given linkedList, and
@@ -55,13 +49,6 @@ var Progression = function(linkedList) {
         flagged : [],
         count: linkedList.length,
 
-        answer : function(ans) {
-            var normalisedAns = ans.replace(" ", "\\W*");
-            return this.current.answers.filter(
-                function(f){ return f.match(normalisedAns) !== null }
-            ).length > 0;
-        },
-
         next : function() {
 
             if(this.current.last && this.flagged.length > 0) {
@@ -74,49 +61,36 @@ var Progression = function(linkedList) {
 
             this.current = this.current.next;
 
-        },
-
-        flag : function() {
-            this.flagged.push(this.current);
-        },
-
-        lightning : function() {
-            this.current = format(this.flagged)[0];
-            this.count = this.flagged.length;
         }
 
     };
 
 }
 
-var quizController = function($rootScope, $q, KanjiService, VocabularyService, RadicalService) {
+var QuizController = function($rootScope, $q, ParticleService) {
 
     var vm = this;
 
-    var promises = [
-        KanjiService.all(),
-        VocabularyService.all(),
-        RadicalService.all()
-    ];
+    console.log("Starting");
 
     var loadQuestionsIntoScope = function(res) {
 
-        var items = res[0].concat(res[1].concat(res[2]))
+        var items = ParticleService.all();
 
         angular.extend(vm, {
 
             questions : new Progression(format(items)),
             answered : false,
             state : "",
-            answer : "",
+            userInput : "",
 
             attempt : function() {
 
                 if(vm.questions.current.ime) {
-                    vm.answer = wanakana.toKana(vm.answer);
+                    vm.userInput = wanakana.toKana(vm.userInput);
                 }
 
-                if(vm.questions.answer(vm.answer)){
+                if(vm.checkAnswer(vm.userInput)){
                     vm.state = "has-success";
                     vm.answered = true;
                 } else {
@@ -130,8 +104,15 @@ var quizController = function($rootScope, $q, KanjiService, VocabularyService, R
                 vm.questions.next();
                 vm.answered = false;
                 vm.state = "";
-                vm.answer = "";
-            }
+                vm.userInput = "";
+            },
+
+            checkAnswer : function(ans) {
+                var normalisedAns = ans.replace(" ", "\\W*");
+                return this.questions.current.answers.filter(
+                    function(f){ return f.match(normalisedAns) !== null }
+                ).length > 0;
+            },
 
         });
 
@@ -139,117 +120,24 @@ var quizController = function($rootScope, $q, KanjiService, VocabularyService, R
 
     };
 
-    $q.all(promises).then(loadQuestionsIntoScope);
+    loadQuestionsIntoScope();
 
 }
 
-var VocabularyService = function($resource, $routeParams) {
-
-    var VocabularyResource = $resource("/api/vocabulary/"+$routeParams.level);
-
-    return {
-
-        all : function() {
-            return VocabularyResource.get().$promise.then(function(res){
-                var out = [];
-                angular.forEach(res.requested_information, function(v, k) {
-                    out.push({
-                        type: "vocabulary",
-                        character: v.character,
-                        question: "Reading",
-                        answers: v.kana.split(","),
-                        unlocked: v.user_specific != null,
-                        background: "purple",
-                        ime: true
-                    });
-                    out.push({
-                        type: "vocabulary",
-                        character: v.character,
-                        question: "Meaning",
-                        answers: v.meaning.split(","),
-                        unlocked: v.user_specific != null,
-                        background: "purple",
-                        ime: false
-                    });
-                });
-                return out;
-            });
-        },
-    };
-}
-
-var KanjiService = function($resource, $routeParams) {
+var ParticleService = function($resource, $routeParams) {
 
     var KanjiResource = $resource("/api/kanji/"+$routeParams.level);
 
     return {
 
         all : function() {
-            return KanjiResource.get().$promise.then(function(res){
-                var out = [];
-                angular.forEach(res.requested_information, function(v, k) {
-                    out.push({
-                        type: "kanji",
-                        character: v.character,
-                        question: "Reading",
-                        answers: v[v.important_reading].split(","),
-                        unlocked: v.user_specific != null,
-                        background: "pink",
-                        ime: true
-                    });
-                    out.push({
-                        type: "kanji",
-                        character: v.character,
-                        question: "Meaning",
-                        answers: v.meaning.split(","),
-                        unlocked: v.user_specific != null,
-                        background: "pink",
-                        ime: false
-                    });
-                });
-                return out;
-            });
+            return [{
+                item : "に",
+                question : "What's that particle?",
+                answers : ["place"]
+            }];
         },
     };
-}
-
-var RadicalService = function($resource, $routeParams) {
-    
-    var RadicalResource = $resource("/api/radicals/"+$routeParams.level);
-
-    return {
-
-        all : function() {
-
-            return RadicalResource.get().$promise.then(function(res){
-                return res.requested_information.map(function(v, k) {
-                    return {
-                        type: "radical",
-                        character: v.character,
-                        question: "Meaning",
-                        answers: v.meaning.split(","),
-                        unlocked: v.user_specific != null,
-                        background: "blue",
-                        ime: false
-                    };
-                });
-            });
-        },
-    };
-}
-
-var config = function($interpolateProvider, $locationProvider, $routeProvider) {
-
-    $interpolateProvider.startSymbol('{$');
-    $interpolateProvider.endSymbol('$}');
-    $locationProvider.html5Mode(true);
-
-    $routeProvider.when("/:level", {
-        templateUrl : "/static/fragments/quizbox.html",
-        controller : "quizControl",
-        controllerAs : "quiz"
-    });
-
 }
 
 var imeDirective = function() {
@@ -283,9 +171,6 @@ var imeDirective = function() {
 
 var app = angular.module("quizzer", ["ngResource", "ngRoute", "ngAnimate"]);
 
-app.config(config);
-app.controller("quizControl", quizController);
-app.factory("RadicalService", RadicalService);
-app.factory("KanjiService", KanjiService);
-app.factory("VocabularyService", VocabularyService);
+app.controller("QuizController", QuizController);
+app.factory("ParticleService", ParticleService);
 app.directive("ngIme", imeDirective);
