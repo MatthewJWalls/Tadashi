@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,600,700|Coming+Soon' rel='stylesheet' type='text/css'>
     <script src="static/angular.min.js"></script>    
     <script src="static/angular-route.min.js"></script>    
     <script src="static/angular-animate.min.js"></script>
@@ -33,7 +35,7 @@
     <div id="quiz-panel" ng-controller="QuizController as quiz">
 
       <span class="blue box">
-        <h1 ng-bind="quiz.questions.current.item"></h1>
+        <h1 class="japanese" ng-bind="quiz.questions.current.item"></h1>
       </span>
 
       <h2>{{quiz.questions.current.question}}</h2>
@@ -41,25 +43,25 @@
       <!-- IME form -->
 
       <div ng-ime class="form-group has-feedback ime-form" ng-class="quiz.state">
-        <input ng-model="quiz.userInput" type="text" class="form-control input-lg" id="ime" autocapitalize="off">
+        <input ng-model="quiz.userInput" type="text" class="form-control input-lg" id="ime" autocapitalize="off" placeholder="Type Answer" autofocus>
         <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="quiz.state=='has-success'"></span>
         <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="quiz.state=='has-error'"></span>
       </div>
 
       <!-- before answering -->
       <div ng-show="!quiz.answered">
-        <button class="btn btn-success" ng-click="quiz.attempt()">show</button> 
+        <button class="fabulous" ng-click="quiz.attempt()">Check</button>
       </div>
 
       <!-- after answering correctly -->
       <div ng-show="quiz.state=='has-success'">
-        <button class="btn btn-success" ng-click="quiz.next();">next</button>
+        <button class="fabulous" ng-click="quiz.next()">Check</button>
       </div>
 
       <!-- after answering incorrectly -->
       <div ng-show="quiz.state=='has-error'">
         <h2 ng-bind="quiz.questions.current.answers"></h2>
-        <button class="btn btn-success" ng-click="quiz.next();">next</button> 
+        <button class="fabulous" ng-click="quiz.next()">Check</button>
       </div>
 
     </div>

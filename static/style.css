@@ -25,13 +25,13 @@ html, body {
 }
 
 body {
-    font-family: Meiryo;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+    background-color: #4babf2;
 }
 
-button:hover{
-    animation-name: heartbeat;
-    animation-duration: 2.5s;
-    animation-iteration-count: infinite;
+h1,h2,h3,h4,h5 {
+    font-weight: lighter;
 }
 
 /* loading panel */
@@ -42,9 +42,9 @@ button:hover{
     width: 100%;
     top: 0px;
     background-color: #4babf2;
-    color: white;
     z-index: 999;
     text-align: center;
+    color: white;
 }
 
 .loading-panel>.loading-inner {
@@ -70,47 +70,33 @@ button:hover{
 
 /* quiz box */
 
+.japanese {
+    font-family: Meiryo;
+}
+
 .box {
     display: inline-block;
     text-align: center;    
     width: 100%;
-}
-
-.blue {
-    background-color: rgb(0, 161, 241);
-    background-image: linear-gradient(rgb(0, 170, 255), rgb(0, 147, 221));
-    background-repeat: repeat-x;
-    color: white;
-    text-shadow: rgb(0, 147, 221) 5px 5px 0px;    
-}
-
-.pink {
-    background-color: rgb(241, 0, 161);
-    background-image: linear-gradient(rgb(255, 0, 170), rgb(221, 0, 147));
-    background-repeat: repeat-x;
-    color: white;
-    text-shadow: rgb(221, 0, 147) 5px 5px 0px;
-}
-
-.purple {
-    background-color: rgb(161, 0, 241);
-    background-image: linear-gradient(rgb(170, 0, 255), rgb(147, 0, 221));
-    background-repeat: repeat-x;
-    color: white;
-    text-shadow: rgb(147, 0, 221) 5px 5px 0px;
+    text-shadow: rgb(63, 159, 230) 5px 5px 0px;
 }
 
 #quiz-panel {
     text-align: center;
     height: 100%;
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 2.5em;
 }
 
 #quiz-panel>button {
     display: inline-block;
+    color: black;
 }
 
 #quiz-panel h1 {
-    font-size: 32vmin;
+    font-size: 20vmin;
 }
 
 #quiz-panel h1.ng-leave {
@@ -136,13 +122,59 @@ button:hover{
 /* ime control */
 
 .ime-form {
-    width: 60%;
+    width: 30%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
     text-align: center;
 }
 
-.ime-form>input {
+.ime-form>input, .ime-form>input:focus {
     text-align: center;
+    background-color: rgb(75, 171, 242);
+    border-width: 0px 0px 1px 0px;
+    color: white;
+    font-weight: bold;
+    border-radius: 1px;
+    border-color: #91c7ef !important; /*important to override bootstrap*/
+    box-shadow: none !important;
+    padding: 0px !important;
+}
+
+.ime-form>input::-moz-placeholder {
+   color: #91c7ef !important;
+   font-weight: normal !important;
+   font-style: italic;
+}
+
+.icon-button-outline {
+    border: 1px solid white;
+    border-radius: 100px;
+    text-align: center;
+    display: inline-block;
+    height: 4em;
+    width: 4em;
+    line-height: 3.9em;
+    cursor: pointer;
+}
+
+.icon-button {
+    font-size: 2em;
+    vertical-align: middle;
+    margin-left: 6px
+}
+
+button.fabulous {
+    background-color: rgb(120, 197, 254);
+    border: 0px solid white;
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 3px;
+    margin-top: 0.5em;
+}
+
+button.fabulous:hover {
+    animation-name: heartbeat;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
 }
