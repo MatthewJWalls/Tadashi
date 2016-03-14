@@ -148,7 +148,7 @@ h1,h2,h3,h4,h5 {
 
 .ime-form>input, .ime-form>input:focus {
     text-align: center;
-    background-color: rgb(75, 171, 242);
+    background-color: rgb(75, 171, 242) !important;
     border-width: 0px 0px 1px 0px;
     color: white;
     font-weight: bold;
