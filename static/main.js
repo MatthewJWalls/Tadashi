@@ -55,7 +55,7 @@ var Progression = function(array) {
 
             var next = this.current;
 
-            // loop until we get a question different than our current one
+            // loop until we pick a question different than our current one
 
             while(next == this.current) {
                 var y = Math.random()*(Math.pow(this.items.length, 2));
@@ -169,7 +169,7 @@ var ParticleService = function($resource, $routeParams) {
                 item : "に",
                 question : "What's that particle?",
                 answers : ["time", "destination"],
-                explanation : "に can be thought of as the 'objective' of a sentence. It can come after time, destination"
+                explanation : "に can be thought of as the 'target' of a verb. It can come after time, destination"
             },{
                 item : "で",
                 question : "What's that particle?",
@@ -188,7 +188,7 @@ var ParticleService = function($resource, $routeParams) {
                 explanation : "は is the Topic Marker, it places emphasis on what came before it",
                 ime: true
             },{
-                item : "にほん_いきます",
+                item : "にほん <span class='light'>?</span> いきます",
                 question : "What's that particle?",
                 answers : ["に"],
                 explanation : "に can be thought of as the 'target' of a verb. It can come after time, destination",

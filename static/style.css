@@ -34,6 +34,10 @@ h1,h2,h3,h4,h5 {
     font-weight: lighter;
 }
 
+.light {
+    opacity: 0.3;
+}
+
 /* bootstrap overrides */
 
 .has-success .form-control-feedback {
@@ -102,7 +106,7 @@ h1,h2,h3,h4,h5 {
 }
 
 #quiz-panel h1 {
-    font-size: 15vmin;
+    font-size: 11vmin;
 }
 
 #quiz-panel h1.ng-leave {
@@ -123,6 +127,12 @@ h1,h2,h3,h4,h5 {
     left: 10px;
     font-size: 1em;
     font-weight: bold;
+}
+
+/* answer panel */
+
+.answer-panel h2 {
+    margin-bottom: 1em;
 }
 
 /* ime control */

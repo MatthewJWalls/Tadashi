@@ -36,10 +36,10 @@
     <div id="quiz-panel" ng-controller="QuizController as quiz">
 
       <span class="blue box">
-        <h1 class="japanese" ng-bind="quiz.questions.current.item" scaled-font="50"></h1>
+        <h1 class="japanese" ng-bind-html="quiz.questions.current.item" scaled-font="50"></h1>
       </span>
 
-      <h2>{{quiz.questions.current.question}}</h2>
+      <h2 ng-bind="quiz.questions.current.question"></h2>
 
       <!-- IME form -->
 
@@ -55,17 +55,17 @@
       </div>
 
       <!-- after answering correctly -->
-      <div ng-show="quiz.state=='has-success'">
+      <div class="answer-panel" ng-show="quiz.state=='has-success'">
         <button class="fabulous" ng-click="quiz.next()">Next</button>
-        <h2 ng-bind="quiz.questions.current.answers"></h2>
+        <h2 ng-bind="quiz.questions.current.answers.join(', ')"></h2>
         <h4 ng-bind="quiz.questions.current.explanation"></h4>
         <h3 ng-bind-html="quiz.questions.current.example"></h3>
       </div>
 
       <!-- after answering incorrectly -->
-      <div ng-show="quiz.state=='has-error'">
+      <div class="answer-panel" ng-show="quiz.state=='has-error'">
         <button class="fabulous" ng-click="quiz.next()">Next</button>
-        <h2 ng-bind="quiz.questions.current.answers"></h2>
+        <h2 ng-bind="quiz.questions.current.answers.join(', ')"></h2>
         <h4 ng-bind="quiz.questions.current.explanation"></h4>
         <h3 ng-bind-html="quiz.questions.current.example"></h3>
       </div>
