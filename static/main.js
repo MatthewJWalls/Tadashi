@@ -169,7 +169,8 @@ var ParticleService = function($resource, $routeParams) {
                 item : "に",
                 question : "What's that particle?",
                 answers : ["time", "destination", "direction"],
-                explanation : "に can be thought of as the 'target' of a verb. It can come after time, destination"
+                explanation : "に can be thought of as the 'target' of a verb. It can come after time, destination",
+                example : "にほん <strong>に</strong> いきます"
             },{
                 item : "で",
                 question : "What's that particle?",
@@ -180,13 +181,8 @@ var ParticleService = function($resource, $routeParams) {
                 item : "は",
                 question : "What's that particle?",
                 answers : ["topic marker", "topic"],
-                explanation : "は is the Topic Marker, it places emphasis on what came before it"
-            },{
-                item : "Topic",
-                question : "What's that particle?",
-                answers : ["は"],
                 explanation : "は is the Topic Marker, it places emphasis on what came before it",
-                ime: true
+                example : "牛　<strong>は<strong>　たべます / I ate the cow"
             },{
                 item : "にほん <span class='light'>?</span> いきます",
                 question : "What's that particle?",
