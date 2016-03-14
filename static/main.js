@@ -101,7 +101,7 @@ var Progression = function(array) {
 
 }
 
-var QuizController = function($rootScope, $q, ParticleService) {
+var QuizController = function($rootScope, $q, $sanitize, ParticleService) {
 
     var vm = this;
 
@@ -175,7 +175,7 @@ var ParticleService = function($resource, $routeParams) {
                 question : "What's that particle?",
                 answers : ["place", "at", "by way of"],
                 explanation : "で denotes the 'how' or 'where' of a verb",
-                example : "くるま <strong>で</strong> いきます"
+                example : "くるま <strong>で</strong> いきます / to go by car"
             },{
                 item : "は",
                 question : "What's that particle?",
@@ -227,7 +227,7 @@ var imeDirective = function() {
     };
 }
 
-var app = angular.module("quizzer", ["ngResource", "ngRoute", "ngAnimate"]);
+var app = angular.module("quizzer", ["ngResource", "ngRoute", "ngAnimate", "ngSanitize"]);
 
 app.controller("QuizController", QuizController);
 app.factory("ParticleService", ParticleService);
