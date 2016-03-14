@@ -134,15 +134,31 @@ var ParticleService = function($resource, $routeParams) {
             return [{
                 item : "に",
                 question : "What's that particle?",
-                answers : ["time", "destination"]
+                answers : ["time", "destination"],
+                explanation : "に can be thought of as the 'objective' of a sentence. It can come after time, destination"
             },{
                 item : "で",
                 question : "What's that particle?",
-                answers : ["place"]
+                answers : ["place", "at", "by way of"],
+                explanation : "で denotes the 'how' or 'where' of a verb",
+                example : "くるま <strong>で</strong> いきます"
             },{
                 item : "は",
                 question : "What's that particle?",
-                answers : ["topic marker", "topic"]
+                answers : ["topic marker", "topic"],
+                explanation : "は is the Topic Marker, it places emphasis on what came before it"
+            },{
+                item : "Topic",
+                question : "What's that particle?",
+                answers : ["は"],
+                explanation : "は is the Topic Marker, it places emphasis on what came before it",
+                ime: true
+            },{
+                item : "にほん_いきます",
+                question : "What's that particle?",
+                answers : ["に"],
+                explanation : "に can be thought of as the 'target' of a verb. It can come after time, destination",
+                ime: true
             }];
         },
     };

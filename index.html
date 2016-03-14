@@ -55,13 +55,18 @@
 
       <!-- after answering correctly -->
       <div ng-show="quiz.state=='has-success'">
-        <button class="fabulous" ng-click="quiz.next()">Check</button>
+        <button class="fabulous" ng-click="quiz.next()">Next</button>
+        <h2 ng-bind="quiz.questions.current.answers"></h2>
+        <h4 ng-bind="quiz.questions.current.explanation"></h4>
+        <h3 ng-bind-html="quiz.questions.current.example"></h3>
       </div>
 
       <!-- after answering incorrectly -->
       <div ng-show="quiz.state=='has-error'">
+        <button class="fabulous" ng-click="quiz.next()">Next</button>
         <h2 ng-bind="quiz.questions.current.answers"></h2>
-        <button class="fabulous" ng-click="quiz.next()">Check</button>
+        <h4 ng-bind="quiz.questions.current.explanation"></h4>
+        <h3 ng-bind-html="quiz.questions.current.example"></h3>
       </div>
 
     </div>
