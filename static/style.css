@@ -159,9 +159,15 @@ h1,h2,h3,h4,h5 {
 }
 
 .ime-form>input::-moz-placeholder {
-   color: #91c7ef !important;
-   font-weight: normal !important;
-   font-style: italic;
+    color: #91c7ef !important;
+    font-weight: normal !important;
+    font-style: italic;
+}
+
+.ime-form>input::-webkit-input-placeholder {
+    color: #91c7ef !important;
+    font-weight: normal !important;
+    font-style: italic;
 }
 
 .icon-button-outline {
