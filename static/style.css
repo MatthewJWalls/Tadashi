@@ -40,8 +40,9 @@ h1,h2,h3,h4,h5 {
 
 /* bootstrap overrides */
 
-.has-success .form-control-feedback {
+.has-success .form-control-feedback, .has-error .form-control-feedback {
     color: white;
+    line-height: 46px;
 }
 
 /* loading panel */
