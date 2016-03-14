@@ -41,25 +41,59 @@ var format = function(array){
 // tracks progress on a given linkedList, and
 // provides a next() function to iterate through it
 
-var Progression = function(linkedList) {
+var Progression = function(array) {
 
     return {
 
-        current : linkedList[0],
-        flagged : [],
-        count: linkedList.length,
+        current : array[array.length-1],
+        items : array,
 
         next : function() {
 
-            if(this.current.last && this.flagged.length > 0) {
-                this.lightning();
-            } else if(this.current.last) {
-                this.count = linkedList.length;
-            } else {
-                this.count--;
+            // items at end of array more likely to be picked
+            // than those at the beginning of the array
+
+            var next = this.current;
+
+            // loop until we get a question different than our current one
+
+            while(next == this.current) {
+                var y = Math.random()*(Math.pow(this.items.length, 2));
+                var x = Math.sqrt(y);
+                next  = this.items[Math.trunc(x)];
             }
 
-            this.current = this.current.next;
+            this.current = next;
+
+        },
+
+        up : function(i) {
+
+            // user answered the question correctly,
+            // shift item left.
+
+            if(i == 0){
+                return;
+            }
+
+            var t = this.items[i-1];
+            this.items[i-1] = this.items[i];
+            this.items[i] = t;
+
+        },
+
+        down : function(i) {
+
+            // user answered the question incorrectly,
+            // shift item right.
+
+            if(i == this.items.length){
+                return;
+            }
+
+            var t = this.items[i+1];
+            this.items[i+1] = this.items[i];
+            this.items[i] = t;
 
         }
 
