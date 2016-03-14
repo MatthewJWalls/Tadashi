@@ -52,66 +52,21 @@ describe("ring buffer creation", function() {
 
 });
 
-describe("question formating", function() {
-
-    it("removes invalid questions", function() {
-
-        var mock = [
-            {character: null, unlocked: true},
-            {character: "a", unlocked: true},
-            {character: "b", unlocked: true},
-        ];
-
-        expect(format(mock).length).toEqual(2);
-
-    });
-
-    it("removes locked questions", function() {
-
-        var mock = [
-            {character: "a", unlocked: true},
-            {character: "b", unlocked: false},
-        ];
-
-        expect(format(mock).length).toEqual(1);
-
-    });
-
-    it("returns the output as a linked list", function() {
-
-        var mock = [
-            {character: "a", unlocked: true},
-            {character: "b", unlocked: true},
-        ];
-
-        expect(format(mock)[0].next.character).toBeDefined();
-
-    });    
-
-});
-
 describe("Question progressions", function() {
 
     it("iterates through the questions buffer", function() {
 
         var mock = [
-            {character: "a", unlocked: true},
-            {character: "b", unlocked: true},
+            {question: "a", answer: "a"},
+            {question: "b", answer: "b"}
         ];
-
-        mock[0].next = mock[1];
-        mock[1].next = mock[0];
-        mock[0].last = false;
-        mock[1].last = true;
 
         var prog = new Progression(mock);
 
-        expect(prog.current.character).toEqual("a");
+        expect(prog.current.question).toBeDefined();
         prog.next();
-        expect(prog.current.character).toEqual("b");
-        prog.next();
-        expect(prog.current.character).toEqual("a");
-        
+        expect(prog.current.question).toBeDefined();        
+
     });
 
 });
