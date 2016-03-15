@@ -2,9 +2,11 @@
 
 var wanakana = require("../lib/wanakana.js");
 
-var QuizController = function($rootScope, $q, $sanitize, ParticleService, Progression) {
+var QuizController = function($rootScope, $sanitize, ParticleService, Progression) {
 
     var vm = this;
+
+    console.log(Progression);
 
     var loadQuestionsIntoScope = function(res) {
 
