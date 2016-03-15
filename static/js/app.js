@@ -2,6 +2,7 @@ require("./lib/angular.min.js")
 require("./lib/angular-sanitize.min.js")
 require("./lib/angular-animate.min.js")
 require("./lib/angular-animate.min.js")
+require("./lib/angular-mocks.js")
 
 var particles = require("./particles")
 var ime = require("./ime")
