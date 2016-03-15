@@ -1,1 +1,1 @@
-web: gunicorn wanikani-quiz:app --log-file -
+web: gunicorn tadashi:app --log-file -
