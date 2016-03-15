@@ -4,6 +4,7 @@ require("./lib/angular-animate.min.js")
 require("./lib/angular-animate.min.js")
 
 var particles = require("./particles")
+var ime = require("./ime")
 
 var app = angular.module(
     "quizzer", ["ngAnimate", "ngSanitize"]
@@ -12,5 +13,5 @@ var app = angular.module(
 app.service("Progression", particles.Progression);
 app.controller("QuizController", particles.QuizController);
 app.factory("ParticleService", particles.ParticleService);
-app.directive("ngIme", particles.ImeDirective);
+app.directive("ngIme", ime.ImeDirective);
 
