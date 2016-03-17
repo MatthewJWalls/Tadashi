@@ -44,3 +44,43 @@ describe("Question Progressions", function() {
     }));
     
 });
+
+describe("Conjugation Service", function() {
+
+    beforeEach(module("quizzer"));
+
+    it("Should conjugate godan verbs properly", inject(function(_ConjugationService_){
+
+        var c = _ConjugationService_;
+
+        expect(
+            c.conjugate("iku", c.godan_conjugations.indicative.present.positive.plain)
+        ).toBe("iku");
+
+        expect(
+            c.conjugate("iku", c.godan_conjugations.indicative.present.positive.formal)
+        ).toBe("ikimasu");
+
+        expect(
+            c.conjugate("iku", c.godan_conjugations.potential.present.positive.plain)
+        ).toBe("ikeru");
+
+        expect(
+            c.conjugate("iku", c.godan_conjugations.causative.present.positive.plain)
+        ).toBe("ikaseru");
+
+        expect(
+            c.conjugate("iku", c.godan_conjugations.imperative.present.positive.plain)
+        ).toBe("ike");
+
+        expect(
+            c.conjugate("iku", c.godan_conjugations.presumptive_probable.present.positive.plain)
+        ).toBe("iku daro");
+
+        expect(
+            c.conjugate("iku", c.godan_conjugations.presumptive_probable.past.negative.formal)
+        ).toBe("ikanakatta desho");
+
+    }));
+
+});
