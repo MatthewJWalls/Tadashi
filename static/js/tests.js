@@ -57,6 +57,21 @@ describe("Question Progressions", function() {
         expect(_Progression_.ind).toBe(0);
 
     }));
+
+    it("should shift questions left/down when upped", inject(function(_Progression_){ 
+
+        _Progression_.init([
+            {"question" : "a"},
+            {"question" : "b"}
+        ]);
+
+        expect(_Progression_.items[0].question).toBe("a");
+
+        _Progression_.up();
+
+        expect(_Progression_.items[0].question).toBe("b");
+
+    }));
     
 });
 
