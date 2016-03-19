@@ -42,6 +42,21 @@ describe("Question Progressions", function() {
         expect(first.question).not.toBe(second.question);
             
     }));
+
+    it("should change the internal ind variable", inject(function(_Progression_) {
+
+        _Progression_.init([
+            {"question" : "a"},
+            {"question" : "b"}
+        ]);
+
+        expect(_Progression_.ind).toBe(1);
+
+        _Progression_.next();
+
+        expect(_Progression_.ind).toBe(0);
+
+    }));
     
 });
 
