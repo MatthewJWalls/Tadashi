@@ -58,7 +58,7 @@ describe("Question Progressions", function() {
 
     }));
 
-    it("should shift questions left/down when upped", inject(function(_Progression_){ 
+    it("should shift questions left when upped", inject(function(_Progression_){ 
 
         _Progression_.init([
             {"question" : "a"},
@@ -70,6 +70,21 @@ describe("Question Progressions", function() {
         _Progression_.up();
 
         expect(_Progression_.items[0].question).toBe("b");
+
+    }));
+
+    it("should shift questions right when downed", inject(function(_Progression_){ 
+
+        _Progression_.init([
+            {"question" : "a"},
+            {"question" : "b"}
+        ]);
+
+        expect(_Progression_.items[0].question).toBe("a");
+
+        _Progression_.down();
+
+        expect(_Progression_.items[0].question).toBe("a");
 
     }));
     
