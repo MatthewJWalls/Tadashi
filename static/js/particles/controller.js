@@ -19,7 +19,7 @@ var QuizController = function($rootScope, $sanitize, ParticleService, Progressio
 
             attempt : function() {
 
-                if(vm.questions.current.ime) {
+                if(vm.questions.getCurrent().ime) {
                     vm.userInput = wanakana.toKana(vm.userInput);
                 }
 
@@ -42,10 +42,14 @@ var QuizController = function($rootScope, $sanitize, ParticleService, Progressio
 
             checkAnswer : function(ans) {
                 var normalisedAns = ans.replace(" ", "\\W*");
-                return this.questions.current.answers.filter(
+                return this.questions.getCurrent().answers.filter(
                     function(f){ return f.match(normalisedAns) !== null }
                 ).length > 0;
             },
+
+            getCurrent : function() {
+                return this.questions.getCurrent();
+            }
 
         });
 

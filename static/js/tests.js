@@ -138,9 +138,11 @@ describe("Particle Controller", function() {
 
         var controller = $controller('QuizController');
 
-        controller.questions.current.answers = ["test"];
-        controller.questions.current.ime = false;
-
+        spyOn(controller.questions, "getCurrent").and.returnValue({
+            answers : ["test"],
+            ime : false
+        });
+        
         controller.userInput = "wrong answer";
         controller.attempt();
 
@@ -154,8 +156,10 @@ describe("Particle Controller", function() {
 
         var controller = $controller('QuizController');
 
-        controller.questions.current.answers = ["test"];
-        controller.questions.current.ime = false;
+        spyOn(controller.questions, "getCurrent").and.returnValue({
+            answers : ["test"],
+            ime : false
+        });
 
         controller.userInput = "test";
         controller.attempt();

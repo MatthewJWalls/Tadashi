@@ -20,7 +20,7 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
 
         attempt : function() {
 
-            if(vm.questions.current.ime) {
+            if(vm.questions.getCurrent().ime) {
                 vm.userInput = wanakana.toKana(vm.userInput);
             }
 
@@ -43,7 +43,7 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
 
         checkAnswer : function(ans) {
             var normalisedAns = ans.replace(" ", "\\W*");
-            return this.questions.current.answers.filter(
+            return this.questions.getCurrent().answers.filter(
                 function(f){ return f.match(normalisedAns) !== null }
             ).length > 0;
         },

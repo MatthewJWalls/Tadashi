@@ -8,6 +8,10 @@ var Progression = function() {
         this.items = array;
     };
 
+    this.getCurrent = function() {
+        return this.current;
+    }
+
     this.next = function() {
 
         // items at end of array more likely to be picked
