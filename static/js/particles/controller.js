@@ -6,8 +6,6 @@ var QuizController = function($rootScope, $sanitize, ParticleService, Progressio
 
     var vm = this;
 
-    console.log(Progression);
-
     var loadQuestionsIntoScope = function(res) {
 
         Progression.init(ParticleService.all())

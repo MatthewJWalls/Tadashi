@@ -129,3 +129,41 @@ describe("Conjugation Service", function() {
     }));
 
 });
+
+describe("Particle Controller", function() {
+
+    beforeEach(module("quizzer"));
+
+    it("Should have an error state when a user answers incorrectly", inject(function($controller) {
+
+        var controller = $controller('QuizController');
+
+        controller.questions.current.answers = ["test"];
+        controller.questions.current.ime = false;
+
+        controller.userInput = "wrong answer";
+        controller.attempt();
+
+        expect(controller.answered).toBe(true);
+        expect(controller.state).toBe("has-error");
+
+
+    }));
+
+    it("Should have a success state when a user answers correctly", inject(function($controller) {
+
+        var controller = $controller('QuizController');
+
+        controller.questions.current.answers = ["test"];
+        controller.questions.current.ime = false;
+
+        controller.userInput = "test";
+        controller.attempt();
+
+        expect(controller.answered).toBe(true);
+        expect(controller.state).toBe("has-success");
+
+
+    }));
+
+})
