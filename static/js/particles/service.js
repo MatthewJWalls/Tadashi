@@ -32,6 +32,8 @@ var ParticleService = function() {
             }];
         },
     };
-}
+};
+
+angular.module("app.particles").service("ParticleService", ParticleService);
 
 module.exports = ParticleService;

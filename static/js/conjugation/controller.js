@@ -52,6 +52,8 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
 
     $rootScope.finished = true;
 
-}
+};
+
+angular.module("app.conjugation").controller("ConjugationController", ConjugationController);
 
 module.exports = ConjugationController;

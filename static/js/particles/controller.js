@@ -61,4 +61,6 @@ var QuizController = function($rootScope, $sanitize, ParticleService, Progressio
 
 }
 
+angular.module("app.particles").controller("QuizController", QuizController);
+
 module.exports = QuizController;

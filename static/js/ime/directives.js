@@ -29,6 +29,8 @@ var ImeDirective = function() {
 
         }
     };
-}
+};
+
+angular.module("app.ime").directive("ngIme", ImeDirective);
 
 module.exports = ImeDirective;

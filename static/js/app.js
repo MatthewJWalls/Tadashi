@@ -8,17 +8,22 @@ require("./lib/angular-animate.min.js");
 require("./lib/angular-route.min.js");
 require("./lib/angular-mocks.js");
 
-// main application exports
+// main application imports
 
-var particles = require("./particles");
-var conjugation = require("./conjugation");
-var ime = require("./ime");
+require("./particles");
+require("./conjugation");
+require("./ime");
 
 // angular startup
 
-var app = angular.module(
-    "quizzer", ["ngAnimate", "ngSanitize", "ngRoute"]
-);
+var app = angular.module("quizzer", [
+    "ngAnimate", 
+    "ngSanitize", 
+    "ngRoute", 
+    "app.particles", 
+    "app.conjugation", 
+    "app.ime"
+]);
 
 var config = function($interpolateProvider, $locationProvider, $routeProvider) {
 
@@ -40,10 +45,4 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
 
 }
 
-app.config(config)
-app.service("Progression", particles.Progression);
-app.controller("QuizController", particles.QuizController);
-app.controller("ConjugationController", conjugation.ConjugationController);
-app.factory("ParticleService", particles.ParticleService);
-app.factory("ConjugationService", conjugation.ConjugationService);
-app.directive("ngIme", ime.ImeDirective);
+app.config(config);

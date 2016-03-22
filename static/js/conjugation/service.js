@@ -160,6 +160,8 @@ var ConjugationService = function() {
         },
     };
 
-}
+};
+
+angular.module("app.conjugation").factory("ConjugationService", ConjugationService);
 
 module.exports = ConjugationService;
