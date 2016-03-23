@@ -1,5 +1,4 @@
 
-
 // given a string a, and a string transform, returns the transformed a.
 // example transforms : "a>b", "a>b,b>c", ">a", "a>", "a>b|b>c"
 
@@ -139,11 +138,99 @@ var godan_conjugations = function() {
 
 };
 
+
+var ichidan_conjugations = function() {
+        
+    this.dict = "",
+    this.stem = "ru>",
+    this.ta   = "ru>ta",
+    this.te   = "ru>te",
+
+    this.indicative = {
+
+        present : {
+            positive : { plain : "", formal : "ru>masu" },
+            negative : { plain : "ru>nai", formal : "ru>masen" }
+        },
+
+        past : {
+            positive : { plain : "ru>ta", formal : "ru>mashita" },
+            negative : { plain : "ru>nakatta", formal : "ru>masen deshita" }
+        }
+
+    };
+
+    this.potential = {
+
+        present : {
+            positive : { plain : "ru>rareru", formal : "ru>raremasu" },
+            negative : { plain : "ru>rarenai", formal : "ru>raremasen" }
+        }
+
+    }; 
+
+    this.causative = {
+
+        present : {
+            positive : { plain : "ru>saseru", formal : "ru>sasemasu" },
+            negative : { plain : "ru>sasenai", formal : "ru>sasemasen" }
+        }
+
+    };
+
+    this.imperative = {
+
+        present : {
+            positive : { plain : "ru>ro", formal : "ru>te|>kudasai" },
+            negative : { plain : ">na", formal : "ru>nai|>de kudasai" }
+        }
+
+    };
+
+    this.progressive = {
+
+        present : {
+            positive : { plain : "ru>te|>iru", formal : "ru>te|>imasu" },
+            negative : { plain : "", formal : "ru>te|>imasen" }
+        },
+
+        past : {
+            positive : { plain : "ru>te|>ita", formal : "ru>te|>imashita" },
+            negative : { plain : "", formal : "ru>te|>imasen deshita" }
+        }
+
+    };
+
+    this.presumptive_probable = {
+
+        present : {
+            positive : { plain : "> daro", formal : "ru>nai daro" },
+            negative : { plain : "> desho", formal : "ru>nai desho" }
+        },
+
+        past : {
+            positive : { plain : "ru>ta|> daro", formal : "ru>ta|> desho" },
+            negative : { plain : "ru>nakatta|> daro", formal : "ru>nakatta|> desho" }
+        }
+
+    };
+
+    this.presumptive_intent = {
+
+        present : {
+            positive : { plain : "ru>yo", formal : "ru> masho" }
+        }
+
+    };
+
+};
+
 var ConjugationService = function() {
 
     return {
 
     	godan_conjugations : new godan_conjugations(),
+        ichidan_conjugations : new ichidan_conjugations(),
 
     	conjugate : function(w, c) {
     		return T(w, c);

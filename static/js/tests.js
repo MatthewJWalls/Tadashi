@@ -128,6 +128,40 @@ describe("Conjugation Service", function() {
 
     }));
 
+    it("should conjugate ichidan verbs properly", inject(function(_ConjugationService_) {
+
+        var c = _ConjugationService_;
+
+        expect(
+            c.conjugate("taberu", c.ichidan_conjugations.indicative.present.positive.plain)
+        ).toBe("taberu");
+
+        expect(
+            c.conjugate("taberu", c.ichidan_conjugations.indicative.present.positive.formal)
+        ).toBe("tabemasu");
+
+        expect(
+            c.conjugate("taberu", c.ichidan_conjugations.potential.present.positive.plain)
+        ).toBe("taberareru");
+
+        expect(
+            c.conjugate("taberu", c.ichidan_conjugations.causative.present.positive.plain)
+        ).toBe("tabesaseru");
+
+        expect(
+            c.conjugate("taberu", c.ichidan_conjugations.imperative.present.positive.plain)
+        ).toBe("tabero");
+
+        expect(
+            c.conjugate("taberu", c.ichidan_conjugations.presumptive_probable.present.positive.plain)
+        ).toBe("taberu daro");
+
+        expect(
+            c.conjugate("taberu", c.ichidan_conjugations.presumptive_probable.past.negative.formal)
+        ).toBe("tabenakatta desho");
+
+    }));
+
 });
 
 describe("Particle Controller", function() {
