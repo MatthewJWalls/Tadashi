@@ -2,7 +2,7 @@
 
 var wanakana = require("../lib/wanakana.js");
 
-var QuizController = function($rootScope, $sanitize, ParticleService, Progression) {
+var QuizController = function($rootScope, $sanitize, ParticleService, Progression, ParticleOracle) {
 
     var vm = this;
 
@@ -41,10 +41,10 @@ var QuizController = function($rootScope, $sanitize, ParticleService, Progressio
             },
 
             checkAnswer : function(ans) {
-                var normalisedAns = ans.replace(" ", "\\W*");
-                return this.questions.getCurrent().answers.filter(
-                    function(f){ return f.match(normalisedAns) !== null }
-                ).length > 0;
+                return ParticleOracle.checkAnswer(
+                    this.questions.getCurrent(), 
+                    this.userInput
+                );
             },
 
             getCurrent : function() {

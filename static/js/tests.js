@@ -204,4 +204,64 @@ describe("Particle Controller", function() {
 
     }));
 
-})
+});
+
+describe("Conjugation Controller", function() {
+
+    beforeEach(module("quizzer"));
+
+    it("Should have an error state when a user answers incorrectly", inject(function($controller) {
+
+        var controller = $controller('ConjugationController');
+
+        spyOn(controller.questions, "getCurrent").and.returnValue({
+            answers : ["test"],
+            ime : false
+        });
+        
+        controller.userInput = "wrong answer";
+        controller.attempt();
+
+        expect(controller.answered).toBe(true);
+        expect(controller.state).toBe("has-error");
+
+
+    }));
+
+    it("Should have a success state when a user answers correctly", inject(function($controller) {
+
+        var controller = $controller('ConjugationController');
+
+        spyOn(controller.questions, "getCurrent").and.returnValue({
+            answers : ["test"],
+            ime : false
+        });
+
+        controller.userInput = "test";
+        controller.attempt();
+
+        expect(controller.answered).toBe(true);
+        expect(controller.state).toBe("has-success");
+
+
+    }));
+
+});
+
+describe("ConjugationOracle", function(){
+
+    beforeEach(module("quizzer"));
+
+    it("Answers questions properly", inject(function(_ConjugationOracle_) {
+
+        var mockQuestion = {
+            answers : ["test"],
+            ime : false
+        };
+
+        expect(_ConjugationOracle_.checkAnswer(mockQuestion, "test")).toBe(true);
+        expect(_ConjugationOracle_.checkAnswer(mockQuestion, "hank")).toBe(false);
+
+    }));
+
+});

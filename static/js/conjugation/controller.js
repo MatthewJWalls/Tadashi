@@ -2,12 +2,9 @@
 
 var wanakana = require("../lib/wanakana.js");
 
-var ConjugationController = function($rootScope, Progression, ConjugationService) {
+var ConjugationController = function($rootScope, Progression, ConjugationService, ConjugationOracle) {
 	
 	var vm = this;
-
-	console.log("Starting up conjugation controller");
-	console.log(Progression);
 
 	Progression.init(ConjugationService.all());
 
@@ -42,10 +39,10 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
         },
 
         checkAnswer : function(ans) {
-            var normalisedAns = ans.replace(" ", "\\W*");
-            return this.questions.getCurrent().answers.filter(
-                function(f){ return f.match(normalisedAns) !== null }
-            ).length > 0;
+            return ConjugationOracle.checkAnswer(
+                vm.questions.getCurrent(), 
+                vm.userInput
+            );
         },
 
     });
