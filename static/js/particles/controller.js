@@ -59,7 +59,7 @@ var QuizController = function($rootScope, $sanitize, ParticleService, Progressio
 
     loadQuestionsIntoScope();
 
-}
+};
 
 angular.module("app.particles").controller("QuizController", QuizController);
 

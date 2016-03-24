@@ -32,15 +32,15 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true);
 
     $routeProvider.when("/particles", {
-        templateUrl : "/static/partials/quiz.html",
+        templateUrl : "/static/partials/particles.html",
         controller : "QuizController",
         controllerAs : "quiz"
     });
 
     $routeProvider.when("/conjugation", {
-        templateUrl : "/static/partials/quiz.html",
-        controller : "ConjugationController",
-        controllerAs : "quiz"
+        templateUrl : "/static/partials/conjugation.html",
+        controller : "SlideController",
+        controllerAs : "slides"
     });
 
 }

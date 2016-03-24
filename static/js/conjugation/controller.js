@@ -51,6 +51,18 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
 
 };
 
+var SlideController = function($rootScope) {
+
+    var vm = this;
+
+    console.log("SLIDE CONTROLLER HERE!");
+
+    $rootScope.finished = true;
+
+
+};
+
 angular.module("app.conjugation").controller("ConjugationController", ConjugationController);
+angular.module("app.conjugation").controller("SlideController", SlideController);
 
 module.exports = ConjugationController;

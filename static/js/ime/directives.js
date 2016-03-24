@@ -31,6 +31,16 @@ var ImeDirective = function() {
     };
 };
 
+var QuizDirective = function() {
+
+    return {
+        restrict: "AC",
+        templateUrl: '/static/partials/quiz.html'
+    }
+
+};
+
 angular.module("app.ime").directive("ngIme", ImeDirective);
+angular.module("app.ime").directive("ngQuiz", QuizDirective);
 
 module.exports = ImeDirective;
