@@ -39,6 +39,15 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
         controllerAs : "slides"
     });
 
+};
+
+var startup = function(SourceRegistry) {
+
+    SourceRegistry.register("conjugation", "ConjugationService");
+    SourceRegistry.register("Particle", "ParticleService");
+
 }
 
 app.config(config);
+app.run(startup);
+
