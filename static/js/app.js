@@ -32,7 +32,7 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true);
 
 
-    $routeProvider.when("/conjugation/:slideNumber", {
+    $routeProvider.when("/conjugation", {
         templateUrl : "/static/partials/conjugation.html",
         controller : "SlideController",
         controllerAs : "slides"
