@@ -57,9 +57,19 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
 
 };
 
-var SlideController = function($rootScope) {
+var SlideController = function($rootScope, $routeParams) {
 
     var vm = this;
+
+    console.log("Loading with slide number " + $routeParams.slideNumber);
+
+    angular.extend(vm, {
+
+        isShown : function(n) {
+            return ""+n == $routeParams.slideNumber;
+        }
+
+    });
 
     $rootScope.finished = true;
 
