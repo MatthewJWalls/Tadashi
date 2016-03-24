@@ -17,27 +17,27 @@ describe("Question Progressions", function() {
 
     it("should expose current question", inject(function(_Progression_) {
 
-        _Progression_.init([
+        var progression = new _Progression_.Sequence([
             {"question" : "a"},
             {"question" : "b"}
         ]);
         
-        expect(_Progression_.current).toBeDefined();
+        expect(progression.current).toBeDefined();
             
     }));
 
     it("should progress through questions", inject(function(_Progression_) {
 
-        _Progression_.init([
+        var progression = new _Progression_.Sequence([
             {"question" : "a"},
             {"question" : "b"}
         ]);
 
-        var first = _Progression_.current;
+        var first = progression.current;
         
-        _Progression_.next();
+        progression.next();
 
-        var second = _Progression_.current;
+        var second = progression.current;
         
         expect(first.question).not.toBe(second.question);
             
@@ -45,46 +45,46 @@ describe("Question Progressions", function() {
 
     it("should change the internal ind variable", inject(function(_Progression_) {
 
-        _Progression_.init([
+        var progression = new _Progression_.Sequence([
             {"question" : "a"},
             {"question" : "b"}
         ]);
 
-        expect(_Progression_.ind).toBe(1);
+        expect(progression.ind).toBe(1);
 
-        _Progression_.next();
+        progression.next();
 
-        expect(_Progression_.ind).toBe(0);
+        expect(progression.ind).toBe(0);
 
     }));
 
     it("should shift questions left when upped", inject(function(_Progression_){ 
 
-        _Progression_.init([
+        var progression = new _Progression_.Sequence([
             {"question" : "a"},
             {"question" : "b"}
         ]);
 
-        expect(_Progression_.items[0].question).toBe("a");
+        expect(progression.items[0].question).toBe("a");
 
-        _Progression_.up();
+        progression.up();
 
-        expect(_Progression_.items[0].question).toBe("b");
+        expect(progression.items[0].question).toBe("b");
 
     }));
 
     it("should shift questions right when downed", inject(function(_Progression_){ 
 
-        _Progression_.init([
+        var progression = new _Progression_.Sequence([
             {"question" : "a"},
             {"question" : "b"}
         ]);
 
-        expect(_Progression_.items[0].question).toBe("a");
+        expect(progression.items[0].question).toBe("a");
 
-        _Progression_.down();
+        progression.down();
 
-        expect(_Progression_.items[0].question).toBe("a");
+        expect(progression.items[0].question).toBe("a");
 
     }));
     

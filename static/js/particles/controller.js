@@ -8,11 +8,11 @@ var QuizController = function($rootScope, $sanitize, ParticleService, Progressio
 
     var loadQuestionsIntoScope = function(res) {
 
-        Progression.init(ParticleService.all())
+        var progression = new Progression.Sequence(ParticleService.all());
         
         angular.extend(vm, {
 
-            questions : Progression,
+            questions : progression,
             answered : false,
             state : "",
             userInput : "",

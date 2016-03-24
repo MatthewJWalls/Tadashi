@@ -243,6 +243,12 @@ var ConjugationService = function() {
                 answers : ["HODOR", "HODOR", "HODOR"],
                 explanation : "HODOR",
                 example : "HODOR"
+            }, {
+                item : "BRODOR?",
+                question : "What's that brodor?",
+                answers : ["BRODOR"],
+                explanation : "BRODOR",
+                example : "BRODOR"
             }];
         },
     };

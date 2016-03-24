@@ -31,11 +31,6 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
     $interpolateProvider.endSymbol('$}');
     $locationProvider.html5Mode(true);
 
-    $routeProvider.when("/particles", {
-        templateUrl : "/static/partials/particles.html",
-        controller : "QuizController",
-        controllerAs : "quiz"
-    });
 
     $routeProvider.when("/conjugation", {
         templateUrl : "/static/partials/conjugation.html",

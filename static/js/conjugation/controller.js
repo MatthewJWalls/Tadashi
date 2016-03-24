@@ -6,11 +6,11 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
 	
 	var vm = this;
 
-	Progression.init(ConjugationService.all());
+    var progression = new Progression.Sequence(ConjugationService.all());
 
 	angular.extend(vm, {
 
-        questions : Progression,
+        questions : progression,
         answered : false,
         state : "",
         userInput : "",
@@ -32,6 +32,7 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
         },
 
         next : function() {
+
             vm.questions.next();
             vm.answered = false;
             vm.state = "";
@@ -39,11 +40,16 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
         },
 
         checkAnswer : function(ans) {
+
             return ConjugationOracle.checkAnswer(
                 vm.questions.getCurrent(), 
                 vm.userInput
             );
         },
+
+        getCurrent : function() {
+            return vm.questions.getCurrent();
+        }
 
     });
 
@@ -54,8 +60,6 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
 var SlideController = function($rootScope) {
 
     var vm = this;
-
-    console.log("SLIDE CONTROLLER HERE!");
 
     $rootScope.finished = true;
 
