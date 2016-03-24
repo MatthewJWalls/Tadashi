@@ -2,17 +2,25 @@
 
 var Progression = function() {
 
-    this.Sequence = function(array) {
+    this.Sequence = function(array, maxQuestions) {
 
         this.ind = array.length-1;
         this.current = array[array.length-1];
         this.items = array;
+        this.count = 0;
+        this.max = typeof maxQuestions !== 'undefined' ? maxQuestions : -1;
 
         this.getCurrent = function() {
             return this.current;
         }
 
         this.next = function() {
+
+            // if we've reached the end of the progression, return false
+
+            if(this.count == this.max){
+                return false;
+            }
 
             // if only one question then we
             // can't get another one.
@@ -38,6 +46,9 @@ var Progression = function() {
 
             this.ind = ind;
             this.current = next;
+            this.count += 1;
+
+            return true;
             
         };
             
@@ -69,7 +80,7 @@ var Progression = function() {
             this.items[this.ind+1] = this.items[this.ind];
             this.items[this.ind] = t;
             
-        }
+        };
 
     }
 

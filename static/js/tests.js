@@ -87,6 +87,21 @@ describe("Question Progressions", function() {
         expect(progression.items[0].question).toBe("a");
 
     }));
+
+    it("should return false on next() if finished", inject(function(_Progression_){ 
+
+        var progression = new _Progression_.Sequence([
+            {"question" : "a"},
+            {"question" : "b"}
+        ], 2);
+
+        expect(progression.next()).toBe(true);
+        expect(progression.next()).toBe(true);
+        expect(progression.next()).toBe(false);
+
+    }));
+
+
     
 });
 

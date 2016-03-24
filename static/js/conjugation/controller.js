@@ -2,11 +2,11 @@
 
 var wanakana = require("../lib/wanakana.js");
 
-var ConjugationController = function($rootScope, Progression, ConjugationService, ConjugationOracle) {
+var ConjugationController = function($rootScope, $scope, Progression, ConjugationService, ConjugationOracle) {
 	
 	var vm = this;
 
-    var progression = new Progression.Sequence(ConjugationService.all());
+    var progression = new Progression.Sequence(ConjugationService.all(), 3);
 
 	angular.extend(vm, {
 
@@ -33,14 +33,21 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
 
         next : function() {
 
-            vm.questions.next();
-            vm.answered = false;
-            vm.state = "";
-            vm.userInput = "";
+            if(vm.questions.next()){
+
+                vm.answered = false;
+                vm.state = "";
+                vm.userInput = "";
+
+            } else {
+
+                vm.quizFinished();
+
+            }
+
         },
 
         checkAnswer : function(ans) {
-
             return ConjugationOracle.checkAnswer(
                 vm.questions.getCurrent(), 
                 vm.userInput
@@ -49,6 +56,10 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
 
         getCurrent : function() {
             return vm.questions.getCurrent();
+        },
+
+        quizFinished : function() {
+            $rootScope.$emit("slide-finished");
         }
 
     });
@@ -57,19 +68,29 @@ var ConjugationController = function($rootScope, Progression, ConjugationService
 
 };
 
-var SlideController = function($rootScope, $routeParams) {
+var SlideController = function($rootScope, $scope, $routeParams, $location) {
 
     var vm = this;
-
-    console.log("Loading with slide number " + $routeParams.slideNumber);
 
     angular.extend(vm, {
 
         isShown : function(n) {
             return ""+n == $routeParams.slideNumber;
+        },
+
+        getNextSlide : function() {
+            return '/conjugation/' + (parseInt($routeParams.slideNumber)+1);
+        },
+
+        moveToNextSlide : function() {
+            $location.path(vm.getNextSlide());
         }
 
     });
+
+    $rootScope.$on("slide-finished", function(){
+        vm.moveToNextSlide();
+    })
 
     $rootScope.finished = true;
 
