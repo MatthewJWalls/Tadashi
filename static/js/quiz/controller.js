@@ -2,7 +2,7 @@
 
 var wanakana = require("../lib/wanakana.js");
 
-var ConjugationController = function($rootScope, $scope, Progression, ConjugationService, ConjugationOracle) {
+var QuizController = function($rootScope, Progression, ConjugationService) {
 	
 	var vm = this;
 
@@ -48,7 +48,7 @@ var ConjugationController = function($rootScope, $scope, Progression, Conjugatio
         },
 
         checkAnswer : function(ans) {
-            return ConjugationOracle.checkAnswer(
+            return ConjugationService.checkAnswer(
                 vm.questions.getCurrent(), 
                 vm.userInput
             );
@@ -68,34 +68,6 @@ var ConjugationController = function($rootScope, $scope, Progression, Conjugatio
 
 };
 
-var SlideController = function($rootScope) {
+angular.module("app.quiz").controller("QuizController", QuizController);
 
-    var vm = this;
-
-    angular.extend(vm, {
-
-        currentSlide : 1,
-
-        isShown : function(n) {
-            return n == vm.currentSlide;
-        },
-
-        moveToNextSlide : function() {
-            vm.currentSlide += 1;
-        }
-
-    });
-
-    $rootScope.$on("slide-finished", function(){
-        vm.moveToNextSlide();
-    })
-
-    $rootScope.finished = true;
-
-
-};
-
-angular.module("app.conjugation").controller("ConjugationController", ConjugationController);
-angular.module("app.conjugation").controller("SlideController", SlideController);
-
-module.exports = ConjugationController;
+module.exports = QuizController;

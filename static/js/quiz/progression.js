@@ -86,6 +86,6 @@ var Progression = function() {
 
 };
 
-angular.module("app.particles").service("Progression", Progression);
+angular.module("app.quiz").service("Progression", Progression);
 
 module.exports = Progression;

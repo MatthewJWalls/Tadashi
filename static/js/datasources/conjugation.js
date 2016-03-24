@@ -1,3 +1,5 @@
+"use strict";
+
 
 // given a string a, and a string transform, returns the transformed a.
 // example transforms : "a>b", "a>b,b>c", ">a", "a>", "a>b|b>c"
@@ -11,13 +13,13 @@ var T = function(w, t) {
 
     // for each | delimited part
 
-    for(s = 0; s < segs.length; s++) {
+    for(var s = 0; s < segs.length; s++) {
 
         var parts = segs[s].split(",");
 
         // for each , delimited part
 
-        for(p = 0; p < parts.length; p++) {
+        for(var p = 0; p < parts.length; p++) {
 
             var changed = false;
             var oper = parts[p];
@@ -138,7 +140,6 @@ var godan_conjugations = function() {
 
 };
 
-
 var ichidan_conjugations = function() {
         
     this.dict = "",
@@ -251,10 +252,17 @@ var ConjugationService = function() {
                 example : "BRODOR"
             }];
         },
+
+        checkAnswer : function(question, ans) {
+            var normalisedAns = ans.replace(" ", "\\W*");
+            return question.answers.filter(
+                function(f){ return f.match(normalisedAns) !== null }
+            ).length > 0;
+        }
     };
 
 };
 
-angular.module("app.conjugation").factory("ConjugationService", ConjugationService);
+angular.module("app.sources").factory("ConjugationService", ConjugationService);
 
 module.exports = ConjugationService;

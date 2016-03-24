@@ -1,16 +1,4 @@
 
-describe("Particles Question Service", function() {
-
-    beforeEach(module("quizzer"));
-
-    it("should provide questions via all()", inject(function(_ParticleService_) {
-        var questions = _ParticleService_.all();
-        expect(questions[0]).toBeDefined();
-        expect(questions[0].question).toBeDefined();        
-    }));
-    
-});
-
 describe("Question Progressions", function() {
 
     beforeEach(module("quizzer"));
@@ -100,8 +88,23 @@ describe("Question Progressions", function() {
         expect(progression.next()).toBe(false);
 
     }));
+    
+});
 
+describe("Particles Service", function() {
 
+    beforeEach(module("quizzer"));
+
+    it("should provide questions via all()", inject(function(_ParticleService_) {
+        var questions = _ParticleService_.all();
+        expect(questions[0]).toBeDefined();
+        expect(questions[0].question).toBeDefined();        
+    }));
+
+    it("should be able to check answers properly", inject(function(_ParticleService_) {
+        var questions = _ParticleService_.all();
+        expect(_ParticleService_.checkAnswer(questions[0], questions[0].answers[0])).toBe(true);
+    }));
     
 });
 
@@ -179,9 +182,29 @@ describe("Conjugation Service", function() {
 
 });
 
-describe("Particle Controller", function() {
+describe("Quiz Controller", function() {
 
     beforeEach(module("quizzer"));
+
+    it("Should give access to the current question", inject(function($controller){
+
+        var controller = $controller('QuizController');
+
+        expect(controller.getCurrent()).toBeDefined();
+
+    }));
+
+    it("Should progress through questions", inject(function($controller){
+
+        var controller = $controller('QuizController');
+
+        var first = controller.getCurrent();
+
+        controller.next();
+
+        expect(controller.getCurrent()).not.toBe(first);
+
+    }));
 
     it("Should have an error state when a user answers incorrectly", inject(function($controller) {
 
@@ -216,66 +239,6 @@ describe("Particle Controller", function() {
         expect(controller.answered).toBe(true);
         expect(controller.state).toBe("has-success");
 
-
-    }));
-
-});
-
-describe("Conjugation Controller", function() {
-
-    beforeEach(module("quizzer"));
-
-    it("Should have an error state when a user answers incorrectly", inject(function($controller) {
-
-        var controller = $controller('ConjugationController');
-
-        spyOn(controller.questions, "getCurrent").and.returnValue({
-            answers : ["test"],
-            ime : false
-        });
-        
-        controller.userInput = "wrong answer";
-        controller.attempt();
-
-        expect(controller.answered).toBe(true);
-        expect(controller.state).toBe("has-error");
-
-
-    }));
-
-    it("Should have a success state when a user answers correctly", inject(function($controller) {
-
-        var controller = $controller('ConjugationController');
-
-        spyOn(controller.questions, "getCurrent").and.returnValue({
-            answers : ["test"],
-            ime : false
-        });
-
-        controller.userInput = "test";
-        controller.attempt();
-
-        expect(controller.answered).toBe(true);
-        expect(controller.state).toBe("has-success");
-
-
-    }));
-
-});
-
-describe("ConjugationOracle", function(){
-
-    beforeEach(module("quizzer"));
-
-    it("Answers questions properly", inject(function(_ConjugationOracle_) {
-
-        var mockQuestion = {
-            answers : ["test"],
-            ime : false
-        };
-
-        expect(_ConjugationOracle_.checkAnswer(mockQuestion, "test")).toBe(true);
-        expect(_ConjugationOracle_.checkAnswer(mockQuestion, "hank")).toBe(false);
 
     }));
 

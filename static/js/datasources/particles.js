@@ -31,9 +31,17 @@ var ParticleService = function() {
                 ime: true
             }];
         },
-    };
+
+        checkAnswer : function(question, ans) {
+            var normalisedAns = ans.replace(" ", "\\W*");
+            return question.answers.filter(
+                function(f){ return f.match(normalisedAns) !== null }
+            ).length > 0;
+        }
+
+    }
 };
 
-angular.module("app.particles").service("ParticleService", ParticleService);
+angular.module("app.sources").service("ParticleService", ParticleService);
 
 module.exports = ParticleService;
