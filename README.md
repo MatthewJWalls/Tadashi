@@ -1,6 +1,6 @@
 # Tadashi
 
-Tadashi is a set of review/drill apps the Japanese language.
+Tadashi is a set of review/drill apps for the Japanese language.
 
 This app is written in Angular/Python Flask and comes pre-packaged for deployment to heroku.
 
