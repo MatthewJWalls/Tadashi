@@ -2,7 +2,7 @@
 
 var wanakana = require("../lib/wanakana.js");
 
-var QuizController = function($rootScope, $scope, Progression, SourceRegistry) {
+var QuizController = function($rootScope, $scope, Progression) {
 
 	var vm = this;
     var source = $scope.$resolve.source;
