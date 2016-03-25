@@ -36,17 +36,13 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
     $routeProvider.when("/conjugation", {
         templateUrl : "/static/partials/conjugation.html",
         controller : "SlideController",
-        controllerAs : "slides"
+        controllerAs : "slides",
+        resolve : {
+            source : "ConjugationService"
+        }
     });
 
 };
-
-var startup = function(SourceRegistry) {
-
-    SourceRegistry.register("conjugation", "ConjugationService");
-    SourceRegistry.register("Particle", "ParticleService");
-
-}
 
 app.config(config);
 app.run(startup);

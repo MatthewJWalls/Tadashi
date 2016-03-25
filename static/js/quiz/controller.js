@@ -2,11 +2,12 @@
 
 var wanakana = require("../lib/wanakana.js");
 
-var QuizController = function($rootScope, Progression, ConjugationService) {
-	
-	var vm = this;
+var QuizController = function($rootScope, $scope, Progression, SourceRegistry) {
 
-    var progression = new Progression.Sequence(ConjugationService.all(), 3);
+	var vm = this;
+    var source = $scope.$resolve.source;
+
+    var progression = new Progression.Sequence(source.all(), 3);
 
 	angular.extend(vm, {
 
@@ -48,7 +49,7 @@ var QuizController = function($rootScope, Progression, ConjugationService) {
         },
 
         checkAnswer : function(ans) {
-            return ConjugationService.checkAnswer(
+            return source.checkAnswer(
                 vm.questions.getCurrent(), 
                 vm.userInput
             );
