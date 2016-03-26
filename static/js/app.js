@@ -45,5 +45,4 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
 };
 
 app.config(config);
-app.run(startup);
 

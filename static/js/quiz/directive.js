@@ -5,7 +5,7 @@ var QuizDirective = function() {
     return {
         restrict: "AC",
         templateUrl: '/static/partials/quiz.html'
-    }
+    };
 
 };
 
