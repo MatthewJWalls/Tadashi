@@ -4,7 +4,14 @@ var QuizDirective = function() {
 
     return {
         restrict: "AC",
-        templateUrl: '/static/partials/quiz.html'
+        templateUrl: '/static/partials/quiz.html',
+        controller: "QuizController",
+        controllerAs: "quiz",
+        bindToController: {
+            slide : "=",
+            source : "="
+        },
+        scope: true
     };
 
 };

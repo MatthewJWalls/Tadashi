@@ -4,8 +4,12 @@ var wanakana = require("../lib/wanakana.js");
 
 var QuizController = function($rootScope, $scope, Progression) {
 
+    console.log("Inside controller now");
+    console.log($scope.quiz);
+    console.log($scope.quiz.slide);
+
 	var vm = this;
-    var source = $scope.$resolve.source;
+    var source = $scope.quiz.source;
 
     var progression = new Progression.Sequence(source.all(), 3);
 
