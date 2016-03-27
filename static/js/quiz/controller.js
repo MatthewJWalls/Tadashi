@@ -4,10 +4,6 @@ var wanakana = require("../lib/wanakana.js");
 
 var QuizController = function($rootScope, $scope, Progression) {
 
-    console.log("Inside controller now");
-    console.log($scope.quiz);
-    console.log($scope.quiz.slide);
-
 	var vm = this;
     var source = $scope.quiz.source;
 

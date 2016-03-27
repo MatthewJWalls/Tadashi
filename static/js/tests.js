@@ -186,18 +186,23 @@ describe("Quiz Controller", function() {
 
     beforeEach(module("quizzer"));
 
-    it("Should give access to the current question", inject(function($controller){
+    it("Should give access to the current question", inject(function(_$compile_, _$rootScope_, _ConjugationService_){
 
-        var controller = $controller('QuizController');
+        // set up the scope to contain the source
+        _$rootScope_.src = _ConjugationService_;
 
-        expect(controller.getCurrent()).toBeDefined();
+        // compile the directive which will create the controller which will
+        // pull the source from the scope. Hopefully.
+        var directive = _$compile_('<div ng-quiz slide=1 source="src"></div>')(_$rootScope_);
+
+        expect(directive).toBeDefined();
 
     }));
 
-    it("Should progress through questions", inject(function($controller){
+    it("Should progress through questions", inject(function(_$rootScope_, _ConjugationService_, $controller){
 
-        var controller = $controller('QuizController');
-
+        var scope = { quiz: { slide: 1, source : _ConjugationService_ } };
+        var controller = $controller('QuizController', { $scope: scope });
         var first = controller.getCurrent();
 
         controller.next();
@@ -206,9 +211,10 @@ describe("Quiz Controller", function() {
 
     }));
 
-    it("Should have an error state when a user answers incorrectly", inject(function($controller) {
+    it("Should have an error state when wrong", inject(function(_$rootScope_, _ConjugationService_, $controller){
 
-        var controller = $controller('QuizController');
+        var scope = { quiz: { slide: 1, source : _ConjugationService_ } };
+        var controller = $controller('QuizController', { $scope: scope });
 
         spyOn(controller.questions, "getCurrent").and.returnValue({
             answers : ["test"],
@@ -224,9 +230,10 @@ describe("Quiz Controller", function() {
 
     }));
 
-    it("Should have a success state when a user answers correctly", inject(function($controller) {
+    it("Should have a success state when right", inject(function(_$rootScope_, _ConjugationService_, $controller){
 
-        var controller = $controller('QuizController');
+        var scope = { quiz: { slide: 1, source : _ConjugationService_ } };
+        var controller = $controller('QuizController', { $scope: scope });
 
         spyOn(controller.questions, "getCurrent").and.returnValue({
             answers : ["test"],
