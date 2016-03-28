@@ -5,9 +5,9 @@ var wanakana = require("../lib/wanakana.js");
 var QuizController = function($rootScope, $scope, Progression) {
 
 	var vm = this;
-    var source = $scope.quiz.source;
+    var qs = $scope.quiz.qs.slice();
 
-    var progression = new Progression.Sequence(source.all(), 3);
+    var progression = new Progression.Sequence(qs);
 
 	angular.extend(vm, {
 
@@ -49,10 +49,10 @@ var QuizController = function($rootScope, $scope, Progression) {
         },
 
         checkAnswer : function(ans) {
-            return source.checkAnswer(
-                vm.questions.getCurrent(), 
-                vm.userInput
-            );
+            var normalisedAns = ans.replace(" ", "\\W*");
+            return vm.getCurrent().answers.filter(
+                function(f){ return f.match(normalisedAns) !== null }
+            ).length > 0;
         },
 
         getCurrent : function() {

@@ -8,8 +8,7 @@ var QuizDirective = function() {
         controller: "QuizController",
         controllerAs: "quiz",
         bindToController: {
-            slide : "=",
-            source : "="
+            qs : "="
         },
         scope: true
     };

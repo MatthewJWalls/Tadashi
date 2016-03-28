@@ -228,6 +228,22 @@ var ichidan_conjugations = function() {
 
 var ConjugationService = function() {
 
+    var data = [[
+        {
+            item : "HODOR?",
+            question : "What's that hodor?",
+            answers : ["HODOR", "HODOR", "HODOR"],
+            explanation : "HODOR",
+            example : "HODOR"
+        }, {
+            item : "BRODOR?",
+            question : "What's that brodor?",
+            answers : ["BRODOR"],
+            explanation : "BRODOR",
+            example : "BRODOR"
+        }
+    ]];
+
     return {
 
     	godan_conjugations : new godan_conjugations(),
@@ -238,26 +254,11 @@ var ConjugationService = function() {
     	},
 
         all : function() {
-            return [{
-                item : "HODOR?",
-                question : "What's that hodor?",
-                answers : ["HODOR", "HODOR", "HODOR"],
-                explanation : "HODOR",
-                example : "HODOR"
-            }, {
-                item : "BRODOR?",
-                question : "What's that brodor?",
-                answers : ["BRODOR"],
-                explanation : "BRODOR",
-                example : "BRODOR"
-            }];
+            return data;
         },
 
-        checkAnswer : function(question, ans) {
-            var normalisedAns = ans.replace(" ", "\\W*");
-            return question.answers.filter(
-                function(f){ return f.match(normalisedAns) !== null }
-            ).length > 0;
+        get : function(slideNumber) {
+            return data[slideNumber];
         }
     };
 

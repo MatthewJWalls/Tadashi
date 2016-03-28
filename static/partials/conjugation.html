@@ -1,7 +1,7 @@
 <div>
 
   <div ng-show="slides.isShown(1)">
-    <div ng-quiz slide="1" source="$resolve.source"></div>
+    <div ng-quiz qs="$resolve.source.get(0)"></div>
   </div>
 
   <div ng-show="slides.isShown(2)">

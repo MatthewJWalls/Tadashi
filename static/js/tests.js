@@ -189,11 +189,11 @@ describe("Quiz Controller", function() {
     it("Should give access to the current question", inject(function(_$compile_, _$rootScope_, _ConjugationService_){
 
         // set up the scope to contain the source
-        _$rootScope_.src = _ConjugationService_;
+        _$rootScope_.src = _ConjugationService_.get(0);
 
         // compile the directive which will create the controller which will
         // pull the source from the scope. Hopefully.
-        var directive = _$compile_('<div ng-quiz slide=1 source="src"></div>')(_$rootScope_);
+        var directive = _$compile_('<div ng-quiz qs="src"></div>')(_$rootScope_);
 
         expect(directive).toBeDefined();
 
@@ -201,7 +201,7 @@ describe("Quiz Controller", function() {
 
     it("Should progress through questions", inject(function(_$rootScope_, _ConjugationService_, $controller){
 
-        var scope = { quiz: { slide: 1, source : _ConjugationService_ } };
+        var scope = { quiz: { qs : _ConjugationService_.get(0) } };
         var controller = $controller('QuizController', { $scope: scope });
         var first = controller.getCurrent();
 
@@ -213,7 +213,7 @@ describe("Quiz Controller", function() {
 
     it("Should have an error state when wrong", inject(function(_$rootScope_, _ConjugationService_, $controller){
 
-        var scope = { quiz: { slide: 1, source : _ConjugationService_ } };
+        var scope = { quiz: { qs : _ConjugationService_.get(0) } };
         var controller = $controller('QuizController', { $scope: scope });
 
         spyOn(controller.questions, "getCurrent").and.returnValue({
@@ -232,7 +232,7 @@ describe("Quiz Controller", function() {
 
     it("Should have a success state when right", inject(function(_$rootScope_, _ConjugationService_, $controller){
 
-        var scope = { quiz: { slide: 1, source : _ConjugationService_ } };
+        var scope = { quiz: { qs : _ConjugationService_.get(0) } };
         var controller = $controller('QuizController', { $scope: scope });
 
         spyOn(controller.questions, "getCurrent").and.returnValue({
@@ -245,7 +245,6 @@ describe("Quiz Controller", function() {
 
         expect(controller.answered).toBe(true);
         expect(controller.state).toBe("has-success");
-
 
     }));
 
