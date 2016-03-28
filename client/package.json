@@ -4,7 +4,7 @@
   "description": "Angular Japanese Learning app",
   "main": "static/js/app.min.js",
   "scripts": {
-    "test": "karma run",
+    "test": "browserify src/app.js -o static/js/app.min.js; karma run",
     "make": "browserify src/app.js -o static/js/app.min.js",
     "watch": "watchify src/app.js -o static/js/app.min.js"    
   },
