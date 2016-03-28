@@ -1,6 +1,6 @@
 "use strict";
 
-var wanakana = require("../lib/wanakana.js");
+var wanakana = require("../util/wanakana.js");
 
 var ImeDirective = function() {
 
