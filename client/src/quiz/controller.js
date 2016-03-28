@@ -4,12 +4,12 @@ var wanakana = require("../util/wanakana.js");
 
 var QuizController = function($rootScope, $scope, Progression) {
 
-	var vm = this;
+    var vm = this;
     var qs = $scope.quiz.qs.slice();
 
     var progression = new Progression.Sequence(qs);
 
-	angular.extend(vm, {
+    angular.extend(vm, {
 
         questions : progression,
         answered : false,

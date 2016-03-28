@@ -1,3 +1,4 @@
+"use strict";
 
 // 3rd party libs
 
@@ -28,13 +29,20 @@ var app = angular.module("quizzer", [
 
 var config = function($interpolateProvider, $locationProvider, $routeProvider) {
 
+    // Flask uses {{}} so make angular use {$$} instead
+
     $interpolateProvider.startSymbol('{$');
     $interpolateProvider.endSymbol('$}');
-    $locationProvider.html5Mode(true);
 
-    $routeProvider.when("/", {
-        templateUrl : "/static/partials/landing.html"
-    });
+    // routing setup
+
+    // We use angular's "resolve" property to inject the correct datasource
+    // into the given route. It's then referenced in the associated template
+    // partial, where it's bound to a directive. This is the leanest way I've 
+    // found so far to conditionally provide different data to a controller
+    // that is repeated several times on a page.
+
+    $locationProvider.html5Mode(true);
 
     $routeProvider.when("/conjugation", {
         templateUrl : "/static/partials/conjugation.html",
@@ -44,11 +52,10 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
             source : "ConjugationService"
         }
     }).otherwise({ 
-            templateUrl: "/static/partials/conjugation.html" ,
-            controller : "SlideController",
-            controllerAs : "slides",
-        }
-    );
+        templateUrl: "/static/partials/conjugation.html" ,
+        controller : "SlideController",
+        controllerAs : "slides",
+    });
 
 };
 
