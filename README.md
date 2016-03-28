@@ -4,25 +4,29 @@ Tadashi is a set of review/drill apps for the Japanese language.
 
 This app is written in Angular/Python Flask and comes pre-packaged for deployment to heroku.
 
-## Installation
+## Installing & Building The app
 
 Requires Python 2.7+. To install dependencies, use pip:
 
     pip install -r requirements.txt
+    
+To build js use npm:
 
-## Building & Running the App
+    cd client
+    npm install
+    npm run make
 
-To build js and run the development server:
+To run the app:
 
-    browserify client/src/app.js -o client/static/js/app.min.js
     ./tadashi.py
 
 And go to your local port 5000
 
 ## Running the tests
 
-The app comes with a karma.conf.js which allows you to run the tests with the Karma test runner:
+The app comes with a karma.conf.js which allows you to run the tests with the Karma test runner, which
+can be ran from the npm tests command.
 
     cd client/
-    karma run karma.conf.js
+    npm test
 

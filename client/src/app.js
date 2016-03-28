@@ -1,12 +1,11 @@
 
 // 3rd party libs
 
-require("./lib/angular.min.js");
-require("./lib/angular-sanitize.min.js");
-require("./lib/angular-animate.min.js");
-require("./lib/angular-animate.min.js");
-require("./lib/angular-route.min.js");
-require("./lib/angular-mocks.js");
+require("../node_modules/angular");
+require("../node_modules/angular-sanitize");
+require("../node_modules/angular-animate");
+require("../node_modules/angular-route");
+require("../node_modules/angular-mocks/ngMock.js");
 
 // main application imports
 
