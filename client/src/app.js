@@ -32,6 +32,10 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
     $interpolateProvider.endSymbol('$}');
     $locationProvider.html5Mode(true);
 
+    $routeProvider.when("/", {
+        templateUrl : "/static/partials/landing.html"
+    });
+
     $routeProvider.when("/conjugation", {
         templateUrl : "/static/partials/conjugation.html",
         controller : "SlideController",
@@ -39,7 +43,12 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
         resolve : {
             source : "ConjugationService"
         }
-    });
+    }).otherwise({ 
+            templateUrl: "/static/partials/conjugation.html" ,
+            controller : "SlideController",
+            controllerAs : "slides",
+        }
+    );
 
 };
 

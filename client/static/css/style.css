@@ -28,14 +28,23 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-weight: lighter;
     background-color: #4babf2;
+    color: white;
 }
 
 h1,h2,h3,h4,h5 {
     font-weight: lighter;
 }
 
+a {
+    color: white;
+}
+
 .light {
     opacity: 0.3;
+}
+
+.center-content {
+    text-align: center;
 }
 
 /* bootstrap overrides */
@@ -54,8 +63,6 @@ h1,h2,h3,h4,h5 {
     top: 0px;
     background-color: #4babf2;
     z-index: 999;
-    text-align: center;
-    color: white;
 }
 
 .loading-panel>.loading-inner {
@@ -86,24 +93,15 @@ h1,h2,h3,h4,h5 {
 }
 
 .box {
-    display: inline-block;
-    text-align: center;    
+    display: inline-block;  
     width: 100%;
     text-shadow: rgb(63, 159, 230) 5px 5px 0px;
 }
 
 #quiz-panel {
-    text-align: center;
     height: 100%;
-    color: white;
     vertical-align: middle;
-    text-align: center;
     padding-top: 2.5em;
-}
-
-#quiz-panel>button {
-    display: inline-block;
-    color: black;
 }
 
 #quiz-panel h1 {
@@ -143,7 +141,6 @@ h1,h2,h3,h4,h5 {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
-    text-align: center;
 }
 
 .ime-form>input, .ime-form>input:focus {

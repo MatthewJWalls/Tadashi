@@ -1,34 +1,39 @@
-<span class="blue box">
-  <h1 class="japanese" ng-bind-html="quiz.getCurrent().item" scaled-font="50"></h1>
-</span>
 
-<h2 ng-bind="quiz.getCurrent().question"></h2>
+<div id="quiz-panel" class="center-content">
 
-<!-- IME form -->
+  <span class="blue box">
+    <h1 class="japanese" ng-bind-html="quiz.getCurrent().item" scaled-font="50"></h1>
+  </span>
 
-<div ng-ime class="form-group has-feedback ime-form" ng-class="quiz.state">
-  <input ng-model="quiz.userInput" type="text" class="form-control input-lg" id="ime" autocapitalize="off" placeholder="Type Answer" autofocus ng-readonly="quiz.answered">
-  <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="quiz.state=='has-success'"></span>
-  <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="quiz.state=='has-error'"></span>
-</div>
+  <h2 ng-bind="quiz.getCurrent().question"></h2>
 
-<!-- before answering -->
-<div ng-show="!quiz.answered">
-  <button class="fabulous" ng-click="quiz.attempt()">Check</button>
-</div>
+  <!-- IME form -->
 
-<!-- after answering correctly -->
-<div class="answer-panel" ng-show="quiz.state=='has-success'">
-  <button class="fabulous" ng-click="quiz.next()">Next</button>
-  <h2 ng-bind="quiz.getCurrent().answers.join(', ')"></h2>
-  <h4 ng-bind="quiz.getCurrent().explanation"></h4>
-  <h3 ng-bind-html="quiz.getCurrent().example"></h3>
-</div>
+  <div ng-ime class="form-group has-feedback ime-form" ng-class="quiz.state center-content">
+    <input ng-model="quiz.userInput" type="text" class="form-control input-lg" id="ime" autocapitalize="off" placeholder="Type Answer" autofocus ng-readonly="quiz.answered">
+    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="quiz.state=='has-success'"></span>
+    <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="quiz.state=='has-error'"></span>
+  </div>
 
-<!-- after answering incorrectly -->
-<div class="answer-panel" ng-show="quiz.state=='has-error'">
-  <button class="fabulous" ng-click="quiz.next()">Next</button>
-  <h2 ng-bind="quiz.getCurrent().answers.join(', ')"></h2>
-  <h4 ng-bind="quiz.getCurrent().explanation"></h4>
-  <h3 ng-bind-html="quiz.getCurrent().example"></h3>
+  <!-- before answering -->
+  <div ng-show="!quiz.answered">
+    <button class="fabulous" ng-click="quiz.attempt()">Check</button>
+  </div>
+
+  <!-- after answering correctly -->
+  <div class="answer-panel" ng-show="quiz.state=='has-success'">
+    <button class="fabulous" ng-click="quiz.next()">Next</button>
+    <h2 ng-bind="quiz.getCurrent().answers.join(', ')"></h2>
+    <h4 ng-bind="quiz.getCurrent().explanation"></h4>
+    <h3 ng-bind-html="quiz.getCurrent().example"></h3>
+  </div>
+
+  <!-- after answering incorrectly -->
+  <div class="answer-panel" ng-show="quiz.state=='has-error'">
+    <button class="fabulous" ng-click="quiz.next()">Next</button>
+    <h2 ng-bind="quiz.getCurrent().answers.join(', ')"></h2>
+    <h4 ng-bind="quiz.getCurrent().explanation"></h4>
+    <h3 ng-bind-html="quiz.getCurrent().example"></h3>
+  </div>
+
 </div>
