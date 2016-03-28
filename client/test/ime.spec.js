@@ -6,7 +6,7 @@ describe("IME directive", function() {
 
     beforeEach(module("app.ime"));
 
-    it("Should call controller's attempt() when question is unanswered", inject(function(_$compile_, _$rootScope_){
+    it("Should trigger attempt()", inject(function(_$compile_, _$rootScope_){
 
         // set up a fake scope & instantiate the directive
 
@@ -31,7 +31,7 @@ describe("IME directive", function() {
 
     }));
 
-    it("Should call controller's next() when question is answered", inject(function(_$compile_, _$rootScope_){
+    it("Should trigger next()", inject(function(_$compile_, _$rootScope_){
 
         // set up a fake scope & instantiate the directive
 
