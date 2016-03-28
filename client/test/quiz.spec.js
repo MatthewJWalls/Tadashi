@@ -109,7 +109,7 @@ describe("Quiz Controller", function() {
 
     }));
 
-    it("Should progress through questions", inject(function(_$rootScope_, _ConjugationService_, $controller){
+    it("Should progress through questions", inject(function(_ConjugationService_, $controller){
 
         var scope = { quiz: { qs : _ConjugationService_.get(0) } };
         var controller = $controller('QuizController', { $scope: scope });
@@ -121,7 +121,7 @@ describe("Quiz Controller", function() {
 
     }));
 
-    it("Should have an error state when wrong", inject(function(_$rootScope_, _ConjugationService_, $controller){
+    it("Should have an error state when wrong", inject(function(_ConjugationService_, $controller){
 
         var scope = { quiz: { qs : _ConjugationService_.get(0) } };
         var controller = $controller('QuizController', { $scope: scope });
@@ -140,7 +140,7 @@ describe("Quiz Controller", function() {
 
     }));
 
-    it("Should have a success state when right", inject(function(_$rootScope_, _ConjugationService_, $controller){
+    it("Should have a success state when right", inject(function(_ConjugationService_, $controller){
 
         var scope = { quiz: { qs : _ConjugationService_.get(0) } };
         var controller = $controller('QuizController', { $scope: scope });
