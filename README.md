@@ -14,7 +14,7 @@ Requires Python 2.7+. To install dependencies, use pip:
 
 To build js and run the development server:
 
-    browserify static/js/app.js -o static/js/app.min.js
+    browserify client/src/app.js -o client/static/js/app.min.js
     ./tadashi.py
 
 And go to your local port 5000
@@ -23,5 +23,6 @@ And go to your local port 5000
 
 The app comes with a karma.conf.js which allows you to run the tests with the Karma test runner:
 
+    cd client/
     karma run karma.conf.js
 

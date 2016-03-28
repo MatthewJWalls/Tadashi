@@ -1,0 +1,21 @@
+{
+  "name": "Tadashi",
+  "version": "0.0.0",
+  "description": "Angular Japanese Learning app",
+  "main": "static/js/app.min.js",
+  "scripts": {
+    "test": "karma run"
+  },
+  "author": "mjw",
+  "license": "GPL",
+  "devDependencies": {
+    "angular": "^1.5.2",
+    "angular-mocks": "^1.5.2",
+    "browserify": "^13.0.0",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.8",
+    "watchify": "^3.7.0"
+  }
+}

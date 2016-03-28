@@ -10,7 +10,12 @@ USERNAME = 'dontcare'
 PASSWORD = 'dontcare'
 
 # app setup
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    template_folder="client/static/templates",
+    static_folder="client/static"
+)
+
 app.config.from_object(__name__)
 
 # routes

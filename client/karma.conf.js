@@ -2,11 +2,11 @@
 
 module.exports = function(config) {
     config.set({
-        basePath: 'static/js',
+        basePath: '',
         frameworks: ['jasmine'],
         files: [
-            'app.min.js',
-            'tests.js'
+            'static/js/app.min.js',
+            'test/*.js'
         ],
         exclude: [
         ],
