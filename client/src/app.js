@@ -52,14 +52,14 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
             source : "ConjugationService"
         }
     }).when("/particles", {
-        templateUrl : "/static/partials/conjugation.html",
+        templateUrl : "/static/partials/particles.html",
         controller : "SlideController",
         controllerAs : "slides",
         resolve : {
             source : "ParticleService"
         }
     }).otherwise({ 
-        templateUrl: "/static/partials/conjugation.html" ,
+        templateUrl: "/static/partials/landing.html" ,
         controller : "SlideController",
         controllerAs : "slides",
     });
