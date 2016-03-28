@@ -9,7 +9,7 @@
 
   <!-- IME form -->
 
-  <div ng-ime class="form-group has-feedback ime-form" ng-class="quiz.state center-content">
+  <div ng-ime class="form-group has-feedback ime-form" ng-class="quiz.state">
     <input ng-model="quiz.userInput" type="text" class="form-control input-lg" id="ime" autocapitalize="off" placeholder="Type Answer" autofocus ng-readonly="quiz.answered">
     <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="quiz.state=='has-success'"></span>
     <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="quiz.state=='has-error'"></span>

@@ -51,6 +51,13 @@ var config = function($interpolateProvider, $locationProvider, $routeProvider) {
         resolve : {
             source : "ConjugationService"
         }
+    }).when("/particles", {
+        templateUrl : "/static/partials/conjugation.html",
+        controller : "SlideController",
+        controllerAs : "slides",
+        resolve : {
+            source : "ParticleService"
+        }
     }).otherwise({ 
         templateUrl: "/static/partials/conjugation.html" ,
         controller : "SlideController",
