@@ -7,7 +7,7 @@ var QuizController = function($rootScope, $scope, Progression) {
     var vm = this;
     var qs = $scope.quiz.qs.slice();
 
-    var progression = new Progression.Sequence(qs);
+    var progression = new Progression.Sequence(qs, 3);
 
     angular.extend(vm, {
 

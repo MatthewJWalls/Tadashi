@@ -22,11 +22,11 @@ describe("Progression Service", function() {
             {"question" : "b"}
         ]);
 
-        var first = progression.current;
+        var first = progression.getCurrent();
         
         progression.next();
 
-        var second = progression.current;
+        var second = progression.getCurrent();
         
         expect(first.question).not.toBe(second.question);
             
@@ -74,19 +74,6 @@ describe("Progression Service", function() {
         progression.down();
 
         expect(progression.items[0].question).toBe("a");
-
-    }));
-
-    it("should return false on next() if finished", inject(function(_Progression_){ 
-
-        var progression = new _Progression_.Sequence([
-            {"question" : "a"},
-            {"question" : "b"}
-        ], 2);
-
-        expect(progression.next()).toBe(true);
-        expect(progression.next()).toBe(true);
-        expect(progression.next()).toBe(false);
 
     }));
     
