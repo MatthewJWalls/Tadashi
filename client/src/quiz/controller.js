@@ -25,9 +25,11 @@ var QuizController = function($rootScope, $scope, Progression) {
             if(vm.checkAnswer(vm.userInput)){
                 vm.state = "has-success";
                 vm.answered = true;
+                vm.questions.up();
             } else {
                 vm.state = "has-error";
                 vm.answered = true;
+                vm.questions.down();
             }
 
         },
@@ -49,9 +51,9 @@ var QuizController = function($rootScope, $scope, Progression) {
         },
 
         checkAnswer : function(ans) {
-            var normalisedAns = ans.replace(" ", "\\W*");
+            var normalisedAns = ans.toLowerCase().replace(" ", "\\W*");
             return vm.getCurrent().answers.filter(
-                function(f){ return f.match(normalisedAns) !== null }
+                function(f){ return f.toLowerCase().match(normalisedAns) !== null }
             ).length > 0;
         },
 
