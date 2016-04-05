@@ -7,7 +7,7 @@ var Progression = function() {
         this.ind = array.length-1;
         this.current = array[array.length-1];
         this.items = array;
-        this.unlockN = typeof unlock !== 'undefined' ? unlockN : 1;        
+        this.unlockN = typeof unlock !== 'undefined' ? unlockN : 5;
         this.max = typeof maxQuestions !== 'undefined' ? maxQuestions : -1;
         this.start = Math.round((new Date()).getTime() / 1000),
         this.bracket = this.unlockN;
@@ -31,10 +31,7 @@ var Progression = function() {
                 return false;
             }
 
-            if(this.bracket > this.items.length) {
-                // TODO: Don't finish as soon as
-                // we hit the last item, we won't have
-                // asked them all yet
+            if(this.bracket > this.items.length && this.streak == 10) {
                 return false;
             }
             
@@ -46,7 +43,7 @@ var Progression = function() {
             
             // loop until we pick a question different than our current one
 
-            while(this.current == this.items[ind]) {
+            while(this.ind === ind) {
                 var y = Math.random()*(Math.pow(upperBound, 2));
                 var x = Math.sqrt(y);
                 ind   = Math.trunc(x);

@@ -29,7 +29,7 @@ var InterrogativesService = function() {
                 explanation : "",
                 example : ""
             }, {
-                item : "そうして",
+                item : "どうして",
                 question : "Type the English",
                 answers : ["Why"],
                 explanation : "",
