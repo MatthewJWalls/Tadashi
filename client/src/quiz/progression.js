@@ -1,5 +1,15 @@
 "use strict";
 
+/**
+ * 
+ * Progression
+ * 
+ * Given an array of question objects, provides functionality
+ * to iterate through the quiz questions, and tries to be smart
+ * about which questions to repeat.
+ *
+ */
+
 var Progression = function() {
 
     this.Sequence = function(array, unlockN) {

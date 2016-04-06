@@ -1,5 +1,13 @@
 "use strict";
 
+/**
+ * 
+ * Directive for a generic Quiz. The questions are bound into
+ * the directive in the template via the "qs" attribute. The
+ * controller then picks them up further down the line.
+ *  
+ */
+
 var QuizDirective = function() {
 
     return {

@@ -1,5 +1,12 @@
 "use strict";
 
+/**
+ * 
+ * The slide controller exposes functionality to move between
+ * slides as defined in the template.
+ * 
+ */
+
 var SlideController = function($rootScope) {
 
     var vm = this;

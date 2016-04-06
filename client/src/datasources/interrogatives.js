@@ -1,5 +1,15 @@
 "use strict";
 
+/**
+ *
+ * Question service for interrogative vocabulary
+ *
+ * In the future these Services should be pulled
+ * out into json files so that the data isn't
+ * mixed in with the code.
+ *
+ */
+
 var InterrogativesService = function() {
 
     var data = [

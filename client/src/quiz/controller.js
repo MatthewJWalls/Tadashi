@@ -1,5 +1,16 @@
 "use strict";
 
+/**
+ * 
+ * Controller for the ngQuiz directive (the controller is bound in the
+ * directive itself).
+ * 
+ * There will be a different QuizController for each type of quiz in
+ * the future (flashcards, multiple choice, etc) but for now this is
+ * the only one.
+ * 
+ */
+
 var wanakana = require("../util/wanakana.js");
 
 var QuizController = function($rootScope, $scope, Progression) {
