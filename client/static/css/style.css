@@ -47,6 +47,38 @@ a {
     text-align: center;
 }
 
+.circle {
+    height: 0.5em;
+    width: 0.5em;
+    color: white;
+    border-radius: 20px;
+    background-color: white;
+    display: inline-block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
+
+/* landing */
+
+#landing {
+    margin-top: 10%;
+}
+
+#landing h1 {
+    font-size: 5em;
+    font-weight: bold;
+}
+
+#landing h2 {
+    background-color: #3d9be0;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 1em;
+    overflow: hidden;
+}
+
 /* bootstrap overrides */
 
 .has-success .form-control-feedback, .has-error .form-control-feedback {
