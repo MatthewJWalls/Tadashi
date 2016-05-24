@@ -13,6 +13,27 @@
     }   
 }
 
+@keyframes heartbeat-subtle {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(1.03, 1.03);
+    }
+    100% {
+        transform: scale(1, 1);
+    } 
+}
+
+@keyframes grow {
+    0% {
+        transform: scale(1, 1);
+    }
+    100% {
+        transform: scale(1.03, 1.03);
+    }  
+}
+
 @keyframes dissolve {
     0% { opacity: 1; }
     100% { opacity: 0; }
@@ -72,11 +93,23 @@ a {
 }
 
 #landing h2 {
+    cursor: pointer;
     background-color: #3d9be0;
     margin-left: 15%;
     margin-right: 15%;
     padding: 1em;
     overflow: hidden;
+}
+
+#landing a:hover {
+    font-style: normal;
+    color: white;
+}
+
+#landing h2:hover {
+    animation-name: heartbeat-subtle;
+    animation-duration: 2.0s;
+    animation-iteration-count: infinite;
 }
 
 /* bootstrap overrides */
@@ -110,12 +143,6 @@ a {
 
 .loading-panel.ng-hide-add {
     animation: 0.7s dissolve ease;
-}
-
-.beating {
-    animation-name: heartbeat;
-    animation-duration: 4.5s;
-    animation-iteration-count: infinite;
 }
 
 /* quiz box */
